@@ -20,8 +20,8 @@ public class TerrainGenerator : MonoBehaviour
 	public int m_detailSeed = 3;
 	public float  m_detailFrq = 100.0f;
 	//Terrain settings
-	public int m_tilesX = 2; //Number of terrain tiles on the x axis
-	public int m_tilesZ = 2; //Number of terrain tiles on the z axis
+	public int m_tilesX = 1; //Number of terrain tiles on the x axis
+	public int m_tilesZ = 1; //Number of terrain tiles on the z axis
 	public float m_pixelMapError = 6.0f; //A lower pixel error will draw terrain at a higher Level of detail but will be slower
 	public float m_baseMapDist = 1000.0f; //The distance at which the low res base map will be drawn. Decrease to increase performance
 	//Terrain data settings
@@ -210,9 +210,9 @@ public class TerrainGenerator : MonoBehaviour
 				float worldPosX = (x+tileX*(m_heightMapSize-1))*ratio;
 				float worldPosZ = (z+tileZ*(m_heightMapSize-1))*ratio;
 
-				float mountains = Mathf.Max(0.0f, m_mountainNoise.FractalNoise2D(worldPosX, worldPosZ, 6, m_mountainFrq, 0.3f));
+				float mountains = Mathf.Max(0.0f, m_mountainNoise.FractalNoise2D(worldPosX, worldPosZ, 6, m_mountainFrq, 0.2f));
 				
-				float plain = m_groundNoise.FractalNoise2D(worldPosX, worldPosZ, 8, m_groundFrq, 0.2f) + 0.1f;
+				float plain = m_groundNoise.FractalNoise2D(worldPosX, worldPosZ, 8, m_groundFrq, 0.1f) + 0.1f;
 				
 				htmap[z,x] = plain + mountains;
 			}
