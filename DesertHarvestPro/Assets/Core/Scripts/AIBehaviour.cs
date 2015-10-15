@@ -39,6 +39,8 @@ public class AIBehaviour : MonoBehaviour {
 
             case "Combat":
 
+                Debug.Log("lol");
+
                 break;
 
             case "Patrol":
