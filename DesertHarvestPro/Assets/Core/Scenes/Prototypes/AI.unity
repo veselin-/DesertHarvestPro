@@ -294,10 +294,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11496328, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
-      propertyPath: Waypoints.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 411072, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
       propertyPath: m_LocalPosition.x
       value: 29.6420822
@@ -330,22 +326,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 471078, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: .532675207
-      objectReference: {fileID: 0}
-    - target: {fileID: 471078, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: .0703404546
-      objectReference: {fileID: 0}
-    - target: {fileID: 471078, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: .836132765
-      objectReference: {fileID: 0}
-    - target: {fileID: 471078, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: -.110415146
-      objectReference: {fileID: 0}
     - target: {fileID: 11496328, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
       propertyPath: Waypoints.Array.data[0]
       value: 
@@ -362,9 +342,21 @@ Prefab:
       propertyPath: Waypoints.Array.data[3]
       value: 
       objectReference: {fileID: 877450102}
-    - target: {fileID: 19587078, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
-      propertyPath: m_Speed
-      value: .5
+    - target: {fileID: 471078, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: .532675147
+      objectReference: {fileID: 0}
+    - target: {fileID: 471078, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: .0703404471
+      objectReference: {fileID: 0}
+    - target: {fileID: 471078, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: .836132646
+      objectReference: {fileID: 0}
+    - target: {fileID: 471078, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -.110415131
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
