@@ -103,6 +103,7 @@ public class OutlineEffect : MonoBehaviour
 
 	void OnPreCull()
 	{
+		//Debug.Log("OnPrecull");
         if (outlineRenderers != null && outlineRenderers.Count != 0)
         {
             Camera camera = GetComponent<Camera>();
