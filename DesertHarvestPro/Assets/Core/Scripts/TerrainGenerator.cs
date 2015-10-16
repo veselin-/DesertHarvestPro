@@ -52,7 +52,7 @@ public class TerrainGenerator : MonoBehaviour
 	PerlinNoise m_groundNoise, m_mountainNoise, m_treeNoise, m_detailNoise;
 	Terrain[,] m_terrain;
 	SplatPrototype[] m_splatPrototypes;
-	//TreePrototype[] m_treeProtoTypes;
+	TreePrototype[] m_treeProtoTypes;
 	DetailPrototype[] m_detailProtoTypes;
 	Vector2 m_offset;
 	
@@ -108,7 +108,7 @@ public class TerrainGenerator : MonoBehaviour
 				terrainData.SetHeights(0, 0, htmap);
 				terrainData.size = new Vector3(m_terrainSize, m_terrainHeight, m_terrainSize);
 				terrainData.splatPrototypes = m_splatPrototypes;
-				//terrainData.treePrototypes = m_treeProtoTypes;
+				terrainData.treePrototypes = m_treeProtoTypes;
 				terrainData.detailPrototypes = m_detailProtoTypes;
                 
 				
@@ -122,7 +122,7 @@ public class TerrainGenerator : MonoBehaviour
 				//disable this for better frame rate
 				m_terrain[x,z].castShadows = false;
 				
-				//FillTreeInstances(m_terrain[x,z], x, z);
+				FillTreeInstances(m_terrain[x,z], x, z);
 				//FillDetailMap(m_terrain[x,z], x, z);
 			}
 		}
@@ -164,17 +164,17 @@ public class TerrainGenerator : MonoBehaviour
 		m_splatPrototypes[1] = new SplatPrototype();
 		m_splatPrototypes[1].texture = m_splat1;
 		m_splatPrototypes[1].tileSize = new Vector2(m_splatTileSize1, m_splatTileSize1);
-		
-        //m_treeProtoTypes = new TreePrototype[3];
-		
-        //m_treeProtoTypes[0] = new TreePrototype();
-        //m_treeProtoTypes[0].prefab = m_tree0;
-		
-        //m_treeProtoTypes[1] = new TreePrototype();
-        //m_treeProtoTypes[1].prefab = m_tree1;
-		
-        //m_treeProtoTypes[2] = new TreePrototype();
-        //m_treeProtoTypes[2].prefab = m_tree2;
+
+        m_treeProtoTypes = new TreePrototype[3];
+
+        m_treeProtoTypes[0] = new TreePrototype();
+        m_treeProtoTypes[0].prefab = m_tree0;
+
+        m_treeProtoTypes[1] = new TreePrototype();
+        m_treeProtoTypes[1].prefab = m_tree1;
+
+        m_treeProtoTypes[2] = new TreePrototype();
+        m_treeProtoTypes[2].prefab = m_tree2;
 		
 		m_detailProtoTypes = new DetailPrototype[3];
 
