@@ -10,7 +10,9 @@ public class TerrainGenerator : MonoBehaviour
 	public float m_splatTileSize1 = 2.0f;
 	public Texture2D m_detail0, m_detail1, m_detail2;
     public GameObject solder;
-    public float soldierCount=20f;
+    public GameObject[] cliff;
+    public int cliffSpacing = 40;
+    public int soldierSpacing = 150;
 	public GameObject m_tree0, m_tree1, m_tree2;
 	//Noise settings. A higher frq will create larger scale details. Each seed value will create a unique look
 	public int m_groundSeed = 0;
@@ -124,8 +126,10 @@ public class TerrainGenerator : MonoBehaviour
 				//disable this for better frame rate
 				m_terrain[x,z].castShadows = false;
 				
-				FillTreeInstances(m_terrain[x,z], x, z);
+				//FillTreeInstances(m_terrain[x,z], x, z);
                 FillSoldierInstances(m_terrain[x, z], x, z);
+                FillCliffs(m_terrain[x, z], x, z);
+                FillCliffs2(m_terrain[x, z], x, z);
 				//FillDetailMap(m_terrain[x,z], x, z);
 			}
 		}
@@ -266,9 +270,9 @@ public class TerrainGenerator : MonoBehaviour
 				
 				float offsetX = Random.value * unit * m_treeSpacing;
 				float offsetZ = Random.value * unit * m_treeSpacing;
-				
-                float normX = x * unit + offsetX;
-                float normZ = z * unit + offsetZ;
+
+                float normX = x * unit+offsetX;
+                float normZ = z * unit+offsetZ;
                 
                 // Get the steepness value at the normalized coordinate.
                 float angle = terrain.terrainData.GetSteepness(normX, normZ);
@@ -289,9 +293,9 @@ public class TerrainGenerator : MonoBehaviour
 					{
                         int randomTree = Random.Range(0, 3);
 
-                        GameObject obj = Instantiate(m_treeProtoTypes[randomTree].prefab,
-                             new Vector3(worldPosX - 1024 + offsetX/unit, ht, worldPosZ - 1024+offsetZ/unit),
-                             Quaternion.identity) as GameObject;
+                        //GameObject obj = Instantiate(m_treeProtoTypes[randomTree].prefab,
+                        //     new Vector3(worldPosX - 1024 + offsetX/unit, ht, worldPosZ - 1024+offsetZ/unit),
+                        //     Quaternion.identity) as GameObject;
 
 
 						TreeInstance temp = new TreeInstance();
@@ -304,7 +308,7 @@ public class TerrainGenerator : MonoBehaviour
 						temp.color = Color.blue;
 						temp.lightmapColor = Color.white;
 						
-						//terrain.AddTreeInstance(temp);
+						terrain.AddTreeInstance(temp);
 					}
 				}
 				
@@ -321,16 +325,62 @@ public class TerrainGenerator : MonoBehaviour
     void FillSoldierInstances(Terrain terrain, int tileX, int tileZ)
     {
         Random.seed = 0;
-
-        for (int x = 0; x < m_terrainSize; x += m_treeSpacing)
+        
+       
+        for (int x = 0; x < m_terrainSize; x += soldierSpacing)
         {
-            for (int z = 0; z < m_terrainSize; z += m_treeSpacing)
+            for (int z = 0; z < m_terrainSize; z += soldierSpacing)
             {
-
                 float unit = 1.0f / (m_terrainSize - 1);
 
-                float offsetX = Random.value * unit * m_treeSpacing;
-                float offsetZ = Random.value * unit * m_treeSpacing;
+                float offsetX = Random.value * unit * soldierSpacing;
+                float offsetZ = Random.value * unit * soldierSpacing;
+               
+                float normX = x * unit + offsetX;
+                float normZ = z * unit + offsetZ;
+
+                // Get the steepness value at the normalized coordinate.
+                float angle = terrain.terrainData.GetSteepness(normX, normZ);
+
+                // Steepness is given as an angle, 0..90 degrees. Divide
+                // by 90 to get an alpha blending value in the range 0..1.
+                float frac = angle / 90.0f;
+
+                if (frac < 0.5f) //make sure tree are not on steep slopes
+                {
+                    float worldPosX = x + tileX * (m_terrainSize - 1);
+                    float worldPosZ = z + tileZ * (m_terrainSize - 1) ;
+
+                    float noise = m_treeNoise.FractalNoise2D(worldPosX , worldPosZ, 3, m_treeFrq, 1.0f);
+                    float ht = terrain.terrainData.GetInterpolatedHeight(normX, normZ);
+					
+                    if (noise > 0.0f && ht < m_terrainHeight * 0.4f)
+                    {
+                       
+                        GameObject obj = Instantiate(solder,
+                             new Vector3(worldPosX - 1024 + offsetX / unit, ht, worldPosZ - 1024 + offsetZ / unit),
+                             Quaternion.identity) as GameObject;
+                     
+                    }
+                }
+            }
+        }
+
+    }
+
+    void FillCliffs(Terrain terrain, int tileX, int tileZ)
+    {
+        Random.seed = 11;
+
+
+        for (int x = 0; x < m_terrainSize; x += cliffSpacing)
+        {
+            for (int z = 0; z < m_terrainSize; z += cliffSpacing)
+            {
+                float unit = 1.0f / (m_terrainSize - 1);
+
+                float offsetX = Random.value * unit * cliffSpacing;
+                float offsetZ = Random.value * unit * cliffSpacing;
 
                 float normX = x * unit + offsetX;
                 float normZ = z * unit + offsetZ;
@@ -350,17 +400,57 @@ public class TerrainGenerator : MonoBehaviour
                     float noise = m_treeNoise.FractalNoise2D(worldPosX, worldPosZ, 3, m_treeFrq, 1.0f);
                     float ht = terrain.terrainData.GetInterpolatedHeight(normX, normZ);
 
-                    if (noise > 0.0f && ht < m_terrainHeight * 0.4f && soldierCount>0)
+                    if (noise > 0.0f && ht < m_terrainHeight * 0.4f)
                     {
-                        
-                        GameObject obj = Instantiate(solder,
+
+                        GameObject obj = Instantiate(cliff[Random.Range(0, 4)],
                              new Vector3(worldPosX - 1024 + offsetX / unit, ht, worldPosZ - 1024 + offsetZ / unit),
-                             Quaternion.identity) as GameObject;
-                        soldierCount--;
+                             Quaternion.Euler(new Vector3(-90f,0f,0f))) as GameObject;
 
                     }
                 }
+            }
+        }
 
+    }
+    void FillCliffs2(Terrain terrain, int tileX, int tileZ)
+    {
+        Random.seed = 5;
+
+
+        for (int z = 0; z < m_terrainSize; z +=  m_terrainSize / 5)
+        {
+            float fakeZ = z;
+            for (int x = 0; x < m_terrainSize; x += 1)
+            {
+                fakeZ +=0.3f;
+                float unit = 1.0f / (m_terrainSize - 1);
+
+                float offsetX = Random.value * unit * cliffSpacing;
+                float offsetZ = Random.value * unit * cliffSpacing;
+
+                float normX = x * unit + offsetX;
+                float normZ = fakeZ * unit + offsetZ;
+
+
+               
+                    float worldPosX = x + tileX * (m_terrainSize - 1);
+                    float worldPosZ = fakeZ + tileZ * (m_terrainSize - 1);
+
+                    float noise = m_treeNoise.FractalNoise2D(worldPosX, worldPosZ, 3, m_treeFrq, 1.0f);
+                    float ht = terrain.terrainData.GetInterpolatedHeight(normX, normZ);
+
+                    if (noise > 0.0f && ht < m_terrainHeight * 0.4f)
+                    {
+                        float q = unit * 10;
+                        if( worldPosZ - 1024 + offsetZ /q<1024&&worldPosZ - 1024 + offsetZ / q>-1024)
+                        { 
+                        GameObject obj = Instantiate(cliff[Random.Range(3, 6)],
+                             new Vector3(worldPosX - 1024 + offsetX / unit, ht, worldPosZ - 1024 + offsetZ / q),
+                             Quaternion.Euler(new Vector3(-90f, Random.Range(0,180), 0f))) as GameObject;
+                        }
+                    }
+                
             }
         }
 
