@@ -1,13 +1,108 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &175902
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 475864}
+  - 114: {fileID: 11450856}
+  m_Layer: 0
+  m_Name: TerrainGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &475864
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175902}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11450856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6293d66582a372a4e99958cf635e555d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_splat0: {fileID: 2800000, guid: 616ef08982ae217498fb6632b60ab6e9, type: 3}
+  m_splat1: {fileID: 2800000, guid: 616ef08982ae217498fb6632b60ab6e9, type: 3}
+  m_splatTileSize0: 10
+  m_splatTileSize1: 2
+  m_detail0: {fileID: 0}
+  m_detail1: {fileID: 0}
+  m_detail2: {fileID: 0}
+  solder: {fileID: 0}
+  spice: {fileID: 0}
+  cliff:
+  - {fileID: 135384, guid: fa947ae91ceba4441bb833331414effd, type: 2}
+  - {fileID: 130206, guid: e85c577da7f547745b797e656269062d, type: 2}
+  - {fileID: 165804, guid: cc536778d0ba8484c80397b86053000d, type: 2}
+  - {fileID: 156414, guid: ada949fd9affb0c409bd5d11d5a546ed, type: 2}
+  - {fileID: 148076, guid: d476c38258b003a469cfa744940538d6, type: 2}
+  - {fileID: 155364, guid: b4695b588d2af3545aca723a49f688bd, type: 2}
+  water: []
+  cliffSpacing: 150
+  spiceSpacing: 120
+  waterSpacing: 80
+  soldierSpacing: 150
+  m_tree0: {fileID: 0}
+  m_tree1: {fileID: 0}
+  m_tree2: {fileID: 0}
+  m_groundSeed: 5
+  m_groundFrq: 600
+  m_mountainSeed: 1
+  m_mountainFrq: 1000
+  m_treeSeed: 2
+  m_treeFrq: 400
+  m_detailSeed: 3
+  m_detailFrq: 100
+  m_tilesX: 1
+  m_tilesZ: 1
+  m_pixelMapError: 6
+  m_baseMapDist: 1000
+  m_heightMapSize: 513
+  m_alphaMapSize: 1024
+  m_terrainSize: 2048
+  m_terrainHeight: 512
+  m_detailMapSize: 512
+  m_treeSpacing: 32
+  m_treeDistance: 2000
+  m_treeBillboardDistance: 400
+  m_treeCrossFadeLength: 20
+  m_treeMaximumFullLODCount: 400
+  detailMode: 0
+  m_detailObjectDistance: 400
+  m_detailObjectDensity: 4
+  m_detailResolutionPerPatch: 32
+  m_wavingGrassStrength: .400000006
+  m_wavingGrassAmount: .200000003
+  m_wavingGrassSpeed: .400000006
+  m_wavingGrassTint: {r: 1, g: 1, b: 1, a: 1}
+  m_grassHealthyColor: {r: 1, g: 1, b: 1, a: 1}
+  m_grassDryColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 0}
+  m_RootGameObject: {fileID: 175902}
   m_IsPrefabParent: 1
