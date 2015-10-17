@@ -9,6 +9,8 @@ public class VisionControl : MonoBehaviour {
 
     public float sightRadius = 10f;
 
+    public Vector3 lastKnownPlayerPosition;
+
 	// Use this for initialization
 	void Start () {
 
@@ -51,11 +53,7 @@ public class VisionControl : MonoBehaviour {
                     {
                         PlayerIsVisible = true;
                         Debug.Log("Player in vicinity at " + angle + " degrees at a distance of " + hit.distance);
-                    }
-                    else
-                    {
-
-                        Debug.Log(hit.collider.name);
+                        lastKnownPlayerPosition = hit.collider.transform.position;
                     }
                 }
             }
