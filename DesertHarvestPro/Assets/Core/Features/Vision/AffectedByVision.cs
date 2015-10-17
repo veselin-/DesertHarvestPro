@@ -3,16 +3,22 @@ using System.Collections;
 
 public class AffectedByVision : MonoBehaviour {
 
-	private string tag;
+	
+	private float minOutline = 0.005f;
+	private float maxOutline = 0.025f;
+	//public float lerpSpeed = 1f;
+	private bool reverse = true; 
+	private float cycleSpeed = 0.025f;
 
 	public Material spiceVisionMat;
 	public Material waterVisionMat;
-	private Material defaultMat;
-	private Shader bufferShader;
 
-	// Use this for initialization
-	void Start () {
-		tag = gameObject.tag;
+	private Material defaultMat;
+	private string selfTag;
+
+	void Awake()
+	{
+		selfTag = gameObject.tag;
 
 		if(GetComponent<MeshRenderer>())
 		{
@@ -22,18 +28,22 @@ public class AffectedByVision : MonoBehaviour {
 		{
 			defaultMat = GetComponent<SkinnedMeshRenderer>().material;
 		}
-
-		bufferShader = Resources.Load<Shader>("Custom/ItemGlow");
 	}
 
+	// Use this for initialization
+	void Start () {
 
+
+	}
+	
 	void OnEnable()
 	{
-		if(tag == "Spice")
+
+		if(selfTag.Equals("Spice"))
 		{
 			ApplySpiceVision();
 		}
-		else if(tag == "Water")
+		else if(selfTag.Equals("Water"))
 		{
 			ApplyWaterVision();
 		}
@@ -42,38 +52,66 @@ public class AffectedByVision : MonoBehaviour {
 	void OnDisable()
 	{
 		GetComponent<MeshRenderer>().material = defaultMat;
+
 	}
 
 	void ApplySpiceVision()
 	{
-		Texture Base = GetComponent<MeshRenderer>().material.GetTexture("_MainTex");
-		Texture NormalMap = GetComponent<MeshRenderer>().material.GetTexture("_BumpMap");
-//		Material spiceMat = new Material();
+
+		//spiceVisionMat = CreateMaterial(Color.red);
+//		Material spiceMat = Tag Material();
 		//spiceMat.shader
-		GetComponent<MeshRenderer>().material = spiceVisionMat;
+		//Material _tempMap = new Material(spiceVisionMat);
+		//GetComponent<MeshRenderer>().material = _tempMap;
+		Material mat = new Material(spiceVisionMat);
+		//mat.SetFloat("_Outline", 0f);
+		GetComponent<MeshRenderer>().material = mat;
 	}
 
 	void ApplyWaterVision()
 	{
-		GetComponent<MeshRenderer>().material = waterVisionMat;
+		Material _tempMap = new Material(waterVisionMat);
+		GetComponent<MeshRenderer>().material = _tempMap;
 	}
 
-	Material CreateMaterial(Color emissionColor)
+	void ApplyStepsVision()
 	{
-//		Material m = new Material(outlineBufferShader);
-//		m.SetColor("_ColorTint", emissionColor);
 
-		/*
-		m.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-		m.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-		m.SetInt("_ZWrite", 0);
-		m.DisableKeyword("_ALPHATEST_ON");
-		m.EnableKeyword("_ALPHABLEND_ON");
-		m.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-		m.renderQueue = 3000;
-		*/
-//		return m;
-		return null;
 	}
+
+	/*
+	IEnumerator SpicePingPongOutline()
+	{
+		Material mat = new Material(spiceVisionMat);
+		mat.SetFloat("_Outline", 0f);
+		GetComponent<MeshRenderer>().material = mat;
+
+		while(true)
+		{
+			if(!reverse)
+			{
+				mat.SetFloat("_Outline", mat.GetFloat("_Outline") + cycleSpeed * Time.deltaTime);
+				if(mat.GetFloat("_Outline") >= maxOutline - 0.001f)
+				{
+					reverse = true;
+				}
+			}
+			else
+			{
+				mat.SetFloat("_Outline", mat.GetFloat("_Outline") - cycleSpeed * Time.deltaTime);
+				if(mat.GetFloat("_Outline") <= minOutline + 0.001f)
+				{
+					reverse = false;
+				}
+			}
+			yield return null;
+		}
+
+		yield return null;
+
+	}
+
+*/
+
 
 }

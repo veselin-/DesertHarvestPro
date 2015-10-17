@@ -1,4 +1,4 @@
-﻿Shader "Outlined/Silhouetted Bumped Diffuse" {
+﻿Shader "Outlined/Outlined_Glow" {
 	Properties {
 		_ColorTint ("Color Tint", Color) = (1, 1, 1, 1)
 		_OutlineColor ("Outline Color", Color) = (0,0,0,1)

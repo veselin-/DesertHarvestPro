@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: glow
-  m_Shader: {fileID: 4800000, guid: 851a2a4c9a1394db9bb2b24862358a41, type: 3}
+  m_Name: WorldNoiseFx
+  m_Shader: {fileID: 4800000, guid: 41858b3bbf75e4a68b53f0b973e01e9d, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: 2000
@@ -127,10 +127,6 @@ Material:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _RimPower
-        second: 5.92999983
     m_Colors:
       data:
         first:
@@ -140,11 +136,3 @@ Material:
         first:
           name: _Color
         second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _ColorTint
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _RimColor
-        second: {r: 1, g: .529411793, b: .529411793, a: 1}
