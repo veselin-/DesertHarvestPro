@@ -18,8 +18,10 @@ public class VisionControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+
+      
+
+    }
 
     void OnTriggerStay(Collider col)
     {
@@ -32,26 +34,33 @@ public class VisionControl : MonoBehaviour {
             Vector3 direction = col.transform.position - transform.position;
             float angle = Vector3.Angle(direction, transform.forward);
 
+
+           // Debug.DrawRay(transform.position + transform.up, direction.normalized, Color.green, 2f);
             if (angle < FoV * 0.5f)
             {
 
-
-
-
+                Debug.Log("PLayer is in cone");
                 RaycastHit hit;
 
 
-                if (Physics.Raycast(transform.position + transform.up, direction.normalized, out hit, sightRadius))
+                if (Physics.Raycast(transform.position, direction.normalized, out hit, 100f))
                 {
 
-                    if (hit.collider.tag == "Player")
+
+                if (hit.collider.gameObject.tag == "Player")
                     {
                         PlayerIsVisible = true;
-                        Debug.Log("Player in vicinity at " + angle + "degrees");
+                        Debug.Log("Player in vicinity at " + angle + " degrees at a distance of " + hit.distance);
+                    }
+                    else
+                    {
+
+                        Debug.Log(hit.collider.name);
                     }
                 }
             }
         }
+
 
     }
 
