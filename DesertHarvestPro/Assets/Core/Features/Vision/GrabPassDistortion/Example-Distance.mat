@@ -19,7 +19,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: fd1abb8787710a847beac9d445d008bd, type: 3}
+          m_Texture: {fileID: 2800000, guid: da3e4b87336394e6e8a0bcfaae412b0b, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -59,11 +59,11 @@ Material:
       data:
         first:
           name: _IntensityAndScrolling
-        second: {r: .100000001, g: .100000001, b: .5, a: .5}
+        second: {r: .100000001, g: .100000001, b: .100000001, a: .5}
       data:
         first:
           name: _DistanceFade
-        second: {r: 40, g: 20, b: 0, a: 0}
+        second: {r: 0, g: 40, b: 0, a: 0}
       data:
         first:
           name: _Intensity

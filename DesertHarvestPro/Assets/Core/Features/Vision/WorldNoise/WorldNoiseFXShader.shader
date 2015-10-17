@@ -32,7 +32,7 @@ ZTest Always Cull Off ZWrite Off Fog { Mode Off } //Rendering settings
 	
    return o; 
   }
-    
+   
   sampler2D _MainTex; //Reference in Pass is necessary to let us use this variable in shaders
     
   sampler2D _CameraDepthTexture;
@@ -73,7 +73,7 @@ float noise( float3 x )
   //Our Fragment Shader
   fixed4 frag (v2f i) : COLOR{
   	float3 wsPos = compute_world_space(i);
-   		 
+   	float depthValue = Linear01Depth (tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.pos)).r);
 	fixed4 orgCol = tex2D(_MainTex, i.uv); //Get the orginal rendered color 
 	
    	//fixed4 col = fixed4(orgCol.xyz * sin(wsPos.y * 5), 1);
@@ -81,7 +81,19 @@ float noise( float3 x )
      //orgCol.x = noise(wsPos.x * 0.1)
      fixed4 col = fixed4(orgCol.xyz + noise((wsPos.xyz)*0.1) * (1/(wsPos.y + 1.8)),1);
      //fixed4 col = orgCol;
-   return col;
+   
+   float far = 0.9;
+   float close = 0.1;
+   
+   if (depthValue < far && depthValue > close)
+   {
+   		col = fixed4(orgCol.xyz + noise((wsPos.xyz)*0.1) * (1/(wsPos.y + 0.1) * 10),1);
+   		return col;
+   }
+   else
+   {
+   		return col;
+   }
   }
   
   
