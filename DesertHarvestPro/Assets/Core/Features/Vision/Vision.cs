@@ -25,10 +25,12 @@ public class Vision : MonoBehaviour {
 		}
 
 
+		/*
 		foreach(GameObject g in VisibleObjects)
 		{
 
 		}
+		*/
 
 
 	}
