@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: DepthRingPass
-  m_Shader: {fileID: 4800000, guid: f6921bbcf480b40c3b9674f943baad8c, type: 3}
+  m_Name: waterGlow
+  m_Shader: {fileID: 4800000, guid: 851a2a4c9a1394db9bb2b24862358a41, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: 2000
@@ -129,12 +129,8 @@ Material:
         second: 0
       data:
         first:
-          name: _RingWidth
-        second: .00999999978
-      data:
-        first:
-          name: _RingPassTimeLength
-        second: 20
+          name: _RimPower
+        second: 1
     m_Colors:
       data:
         first:
@@ -144,3 +140,11 @@ Material:
         first:
           name: _Color
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _ColorTint
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _RimColor
+        second: {r: .125490203, g: .650980413, b: .654901981, a: 1}

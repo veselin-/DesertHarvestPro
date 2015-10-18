@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: glow
+  m_Name: spiceGlow
   m_Shader: {fileID: 4800000, guid: 851a2a4c9a1394db9bb2b24862358a41, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -130,7 +130,7 @@ Material:
       data:
         first:
           name: _RimPower
-        second: 5.92999983
+        second: 1
     m_Colors:
       data:
         first:
@@ -147,4 +147,4 @@ Material:
       data:
         first:
           name: _RimColor
-        second: {r: 1, g: .529411793, b: .529411793, a: 1}
+        second: {r: .82745105, g: .396078467, b: .0196078438, a: 1}

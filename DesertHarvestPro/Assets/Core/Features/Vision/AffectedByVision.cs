@@ -57,21 +57,30 @@ public class AffectedByVision : MonoBehaviour {
 
 	void ApplySpiceVision()
 	{
-
-		//spiceVisionMat = CreateMaterial(Color.red);
-//		Material spiceMat = Tag Material();
-		//spiceMat.shader
-		//Material _tempMap = new Material(spiceVisionMat);
-		//GetComponent<MeshRenderer>().material = _tempMap;
 		Material mat = new Material(spiceVisionMat);
-		//mat.SetFloat("_Outline", 0f);
+		if(defaultMat.GetTexture("_MainTex") != null)
+		{
+			mat.SetTexture("_MainTex", defaultMat.GetTexture("_MainTex"));
+		}
+		if(defaultMat.GetTexture("_BumpMap") != null)
+		{
+			mat.SetTexture("_BumpMap", defaultMat.GetTexture("_BumpMap"));
+		}
 		GetComponent<MeshRenderer>().material = mat;
 	}
 
 	void ApplyWaterVision()
 	{
-		Material _tempMap = new Material(waterVisionMat);
-		GetComponent<MeshRenderer>().material = _tempMap;
+		Material mat = new Material(waterVisionMat);
+		if(defaultMat.GetTexture("_MainTex") != null)
+		{
+			mat.SetTexture("_MainTex", defaultMat.GetTexture("_MainTex"));
+		}
+		if(defaultMat.GetTexture("_BumpMap") != null)
+		{
+			mat.SetTexture("_BumpMap", defaultMat.GetTexture("_BumpMap"));
+		}
+		GetComponent<MeshRenderer>().material = mat;
 	}
 
 	void ApplyStepsVision()

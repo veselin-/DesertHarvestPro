@@ -7,6 +7,12 @@ public class Vision : MonoBehaviour {
 	private SphereCollider VisionTrigger;
 	public List<GameObject> VisibleObjects;
 
+	private float minRim = 1f;
+	private float maxRim = 3f;
+	//public float lerpSpeed = 1f;
+	private bool reverse = true; 
+	private float cycleSpeed = 6f;
+
 	// Use this for initialization
 	void Start () {
 		VisionTrigger = GetComponent<SphereCollider>();
@@ -15,23 +21,64 @@ public class Vision : MonoBehaviour {
 
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.E))
+		if(Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(1))
 		{
 			ActivateVision();
 		}
-		if(Input.GetKeyUp(KeyCode.E))
+		if(Input.GetKeyUp(KeyCode.E) || Input.GetMouseButtonUp(1))
 		{
 			DeactivateVision();
 		}
 
 
-		/*
-		foreach(GameObject g in VisibleObjects)
+		if(isVisionActive)
 		{
+			foreach(GameObject g in VisibleObjects)
+			{
+				Material mat = g.GetComponent<MeshRenderer>().material;
+
+				/*
+				if(mat.GetFloat("_RimPower") >= maxRim)
+				{
+					float rimPower = mat.GetFloat("_RimPower") - cycleSpeed * Time.deltaTime;
+					mat.SetFloat("_RimPower", Mathf.Clamp(rimPower, minRim, maxRim));
+
+				}
+				else if(mat.GetFloat("_RimPower") <= maxRim)
+				{
+					float rimPower = mat.GetFloat("_RimPower") + cycleSpeed * Time.deltaTime;
+					mat.SetFloat("_RimPower", Mathf.Clamp(rimPower, minRim, maxRim));
+				}
+				*/
+
+
+				if(!reverse)
+				{
+					//float debug = cycleSpeed * Time.deltaTime;
+					float rimPower = mat.GetFloat("_RimPower") + cycleSpeed * Time.deltaTime;
+					//Debug.Log("if " + debug);
+					mat.SetFloat("_RimPower", Mathf.Clamp(rimPower, minRim, maxRim));
+					if(mat.GetFloat("_RimPower") >= maxRim)
+					{
+						reverse = true;
+					}
+				}
+				else
+				{
+					//float debug = cycleSpeed * Time.deltaTime;
+					//Debug.Log("else " + debug);
+					float rimPower = mat.GetFloat("_RimPower") - cycleSpeed * Time.deltaTime;
+					mat.SetFloat("_RimPower", Mathf.Clamp(rimPower, minRim, maxRim));
+					if(mat.GetFloat("_RimPower") <= minRim)
+					{
+						reverse = false;
+					}
+				}
+
+
+			}
 
 		}
-		*/
-
 
 	}
 	
