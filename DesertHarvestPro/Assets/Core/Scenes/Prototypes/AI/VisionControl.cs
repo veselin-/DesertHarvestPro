@@ -30,7 +30,7 @@ public class VisionControl : MonoBehaviour {
     void OnTriggerStay(Collider col)
     {
 
-        PlayerIsVisible = false;
+        //PlayerIsVisible = false;
 
         if (col.tag == "Player")
         {
@@ -45,22 +45,27 @@ public class VisionControl : MonoBehaviour {
             if (angle < FoV * 0.5f)
             {
 
-                Debug.Log(direction.normalized);
+              //  Debug.Log(direction.normalized);
                 RaycastHit hit;
               //  Debug.DrawRay(eyes.transform.position, direction, Color.green, 0f);
 
                 if (Physics.Raycast(eyes.transform.position, direction, out hit, 100f))
                 {
                     
-                    Debug.Log(hit.collider.name);
+                   // Debug.Log(hit.collider.name);
                     if (hit.collider.gameObject.tag == "Player")
                     {
                         PlayerIsVisible = true;
-                        Debug.Log("Player in vicinity at " + angle + " degrees at a distance of " + hit.distance);
+                       // Debug.Log("Player in vicinity at " + angle + " degrees at a distance of " + hit.distance);
                         lastKnownPlayerPosition = hit.collider.transform.position;
+                    }
+                    else
+                    {
+                        PlayerIsVisible = false;
                     }
                 }
             }
+
         }
 
 

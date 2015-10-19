@@ -44,7 +44,7 @@ public class AIBehaviour : MonoBehaviour {
         {
             //Search: See player = Combat. Unable to find player = Patrol after 5 secs.
             case "Search":
-                Debug.Log("Searching...");
+            //    Debug.Log("Searching...");
 
                 nav.agent.speed = 0.8f;
 
@@ -54,13 +54,13 @@ public class AIBehaviour : MonoBehaviour {
                 {
                     state = "Combat";
                     searchTimer = 0f;
-                    StopCoroutine("searchTurn");
+                    StopAllCoroutines();
                     break;
                 }
                 else
                 {
                     nav.target = vision.lastKnownPlayerPosition;
-                    if (!isLooking)
+                    if (Vector3.Distance( vision.lastKnownPlayerPosition, transform.position) < 2f && !isLooking)
                     {
                         isLooking = true;
                         StartCoroutine(searchTurn());
@@ -73,7 +73,7 @@ public class AIBehaviour : MonoBehaviour {
                 {
                     state = "Patrol";
                     searchTimer = 0f;
-                    StopCoroutine("searchTurn");
+                    StopAllCoroutines();
                 }
 
                 break;
@@ -83,7 +83,7 @@ public class AIBehaviour : MonoBehaviour {
 
                 isLooking = false;
 
-                Debug.Log("Combating...");
+              //  Debug.Log("Combating...");
 
                 nav.agent.speed = 1f;
 
@@ -107,7 +107,7 @@ public class AIBehaviour : MonoBehaviour {
 
                 isLooking = false;
 
-                Debug.Log("Patrolling...");
+               // Debug.Log("Patrolling...");
 
                 nav.agent.speed = 0.5f;
 
@@ -139,11 +139,20 @@ public class AIBehaviour : MonoBehaviour {
     {
         Debug.Log("Soldier is turning");
 
+        float turnTime = 5f;
+
+        float elapsedTime = 0f;
+
         Quaternion startRot = transform.rotation;
         Quaternion endRot = new Quaternion(transform.rotation.x, transform.rotation.y - 180, transform.rotation.z, 0);
 
-        transform.rotation = Quaternion.Slerp(startRot,endRot, 1 * Time.deltaTime);
 
-        yield return null;
+        while (elapsedTime < turnTime)
+        {
+            transform.Rotate(0, 90*Time.deltaTime, 0);
+            yield return new WaitForEndOfFrame();
+        }
+
+        
     }
 }
