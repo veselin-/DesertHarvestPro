@@ -6,12 +6,24 @@ public class UIManager : MonoBehaviour {
 
 	public Image WaterFill;
 	public Image SpiceFill;
+	public GameObject DeathScreen;
+	public GameObject WinScreen;
+	public GameObject PauseScreen;
 
+	private bool pause = false;
 	private float animSpeed = 0.2f;
 
 	// Use this for initialization
 	void Start () {
 		
+	}
+
+	void Update()
+	{
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			PauseGame();
+		}
 	}
 
 	public void SetSpice(float amount)
@@ -28,6 +40,41 @@ public class UIManager : MonoBehaviour {
 		float finalAmount = WaterFill.fillAmount + amount;
 		StartCoroutine(FillWaterAnimation(amount));
 		//WaterFill.fillAmount = amount;
+	}
+
+	public void RestartLevel()
+	{
+		Application.LoadLevel(Application.loadedLevel);
+	}
+
+	public void MainMenu()
+	{
+		Application.LoadLevel("MainMenu");
+	}
+
+	public void QuitGame()
+	{
+		Application.Quit();
+	}
+
+	public void StartGame()
+	{
+		Application.LoadLevel("Terrain");
+	}
+
+	public void PauseGame()
+	{
+		pause = !pause;
+		if(pause)
+		{
+			Time.timeScale = 0;
+			PauseScreen.SetActive(true);
+		}
+		else
+		{
+			PauseScreen.SetActive(false);
+			Time.timeScale = 1;
+		}
 	}
 
 	IEnumerator FillSpiceAnimation(float finalAmount)

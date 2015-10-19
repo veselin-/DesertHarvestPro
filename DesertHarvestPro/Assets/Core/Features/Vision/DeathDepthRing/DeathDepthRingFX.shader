@@ -1,9 +1,10 @@
-﻿Shader "Custom/DepthRingFX" {
+﻿Shader "Custom/DeathDepthRingFX" {
 
 Properties {
    _MainTex ("", 2D) = "white" {} //this texture will have the rendered image before post-processing
    _RingWidth("ring width", Float) = 0.01
    _RingPassTimeLength("ring pass time", Float) = 2.0
+
 }
 
 SubShader {
@@ -30,7 +31,7 @@ v2f vert (appdata_base v){
    v2f o;
    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
    o.scrPos=ComputeScreenPos(o.pos);
-  
+   //o.scrPos.y = 1 - o.scrPos.y;
    return o;
 }
 
@@ -42,18 +43,13 @@ half4 frag (v2f i) : COLOR{
    //extract the value of depth for each screen position from _CameraDepthExture
    float depthValue = Linear01Depth (tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.scrPos)).r);
 
-	#if UNITY_EDITOR_WIN
-	 i.scrPos.y =  1 - i.scrPos.y;
-	#endif
-
-  
    fixed4 orgColor = tex2Dproj(_MainTex, i.scrPos); //Get the orginal rendered color
    float4 newColor; //the color after the ring has passed
    half4 lightRing; //the ring of light that will pass through the dpeth
 
    float t =  ((_Time.y - _StartingTime)/_RingPassTimeLength );
    float t2 = 1 - ((_Time.y - _StartingTime)/(_RingPassTimeLength) );
-   float far = 0.1;
+   float far = 1;
   // float close = 0.4;
    
    //the script attached to the camera will set _RunRingPass to 1 and then will start the ring pass
@@ -62,10 +58,10 @@ half4 frag (v2f i) : COLOR{
 	  {
 	      //this part draws the light ring
 	      if (depthValue < t && depthValue > t - _RingWidth){
-	         lightRing.r = (orgColor.r + 0.5)*0.4;
-	         lightRing.g = (orgColor.g + 0.2)*0.4;
-	         lightRing.b = (orgColor.b)*0.5;
-	         lightRing.a = 0.5;
+	         lightRing.r = 0;
+	         lightRing.g = 0;
+	         lightRing.b = 0;
+	         lightRing.a = 1;
 	         return lightRing;
 	      } 
 	      else 
@@ -79,10 +75,11 @@ half4 frag (v2f i) : COLOR{
 	          {
 	             //this part the ring has passed through
 	             //basically taking the original colors and adding a slight red tint to it.
-	             newColor.r = (orgColor.r + 0.5)*0.5;
-	             newColor.g = (orgColor.g + 0.2)*0.5;
-	             newColor.b = (orgColor.b)*0.5;
+	             newColor.r = (orgColor.r )*0.5;
+	             newColor.g = (orgColor.g )*0.5;
+	             newColor.b = (orgColor.b);
 	             newColor.a = 0.5;
+
 	             return newColor;
 	         }
 	      }

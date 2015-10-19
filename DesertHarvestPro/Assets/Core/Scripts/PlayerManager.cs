@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 public class PlayerManager : MonoBehaviour {
 
@@ -38,9 +39,10 @@ public class PlayerManager : MonoBehaviour {
 		if(SpiceAmount < SpiceLimit)
 		{
 			SpiceAmount += amount;
-			if(SpiceAmount > SpiceLimit)
+			if(SpiceAmount >= SpiceLimit)
 			{
 				SpiceAmount = SpiceLimit;
+				WinGame();
 			}
 		}
 		UISpice();
@@ -72,12 +74,32 @@ public class PlayerManager : MonoBehaviour {
 	public void RemoveWater(float amount)
 	{
 		WaterAmount -= amount;
-		if(WaterAmount < 0)
+		if(WaterAmount <= 0)
 		{
 			WaterAmount = 0;
+			Die();
 		}
 		UIWater();
 	}
 
+	public void Die()
+	{
+		//Time.timeScale = 0;
+		GetComponent<ThirdPersonUserControl>().enabled = false;
+		UI.DeathScreen.SetActive(true);
+		Camera.main.GetComponent<DeathDepthRing>().enabled = true;
+	}
 
+	public void WinGame()
+	{
+		GetComponent<ThirdPersonUserControl>().enabled = false;
+		UI.WinScreen.SetActive(true);
+	}
+
+	/*
+	public void LoseGame()
+	{
+
+	}
+	*/
 }
