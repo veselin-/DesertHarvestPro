@@ -6,6 +6,8 @@ public class UIManager : MonoBehaviour {
 
 	public Image WaterFill;
 	public Image SpiceFill;
+	public GameObject DeathScreen;
+	public GameObject WinScreen;
 
 	private float animSpeed = 0.2f;
 
@@ -28,6 +30,16 @@ public class UIManager : MonoBehaviour {
 		float finalAmount = WaterFill.fillAmount + amount;
 		StartCoroutine(FillWaterAnimation(amount));
 		//WaterFill.fillAmount = amount;
+	}
+
+	public void RestartLevel()
+	{
+		Application.LoadLevel(Application.loadedLevel);
+	}
+
+	public void MainMenu()
+	{
+		Application.LoadLevel("MainMenu");
 	}
 
 	IEnumerator FillSpiceAnimation(float finalAmount)
