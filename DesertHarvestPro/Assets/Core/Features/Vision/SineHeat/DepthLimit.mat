@@ -127,6 +127,10 @@ Material:
         first:
           name: _Metallic
         second: 0
+      data:
+        first:
+          name: _CloseDepth
+        second: .400000006
     m_Colors:
       data:
         first:

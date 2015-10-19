@@ -2,6 +2,7 @@
 
 Properties {
    _MainTex ("", 2D) = "white" {} //this texture will have the rendered image before post-processing
+   _CloseDepth("Close Depth", Range(0.0, 1.0)) = 0.3 
 }
 
 SubShader {
@@ -47,13 +48,13 @@ v2f vert (appdata_t v){
 }
 
 sampler2D _MainTex; //Reference in Pass is necessary to let us use this variable in shaders
-
+float _CloseDepth;
 //Fragment Shader
 half4 frag (v2f i) : COLOR{
    float depthValue = Linear01Depth (tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.scrPos)).r);
    half4 depth;
    float far = 0.9;
-   float close = 0.3;
+   float close = _CloseDepth;
    
    fixed4 orgColor = tex2Dproj(_MainTex, i.scrPos); //Get the orginal rendered color
    //half2 distort = tex2D(_MainTex, i.texcoord.xy).xy;

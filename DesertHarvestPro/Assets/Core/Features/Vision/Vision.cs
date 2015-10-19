@@ -13,10 +13,17 @@ public class Vision : MonoBehaviour {
 	private bool reverse = true; 
 	private float cycleSpeed = 6f;
 
+	public LayerMask activeVisionMain;
+	public LayerMask activeVisionPlayer;
+	public LayerMask PlayerCameraMask;
+	public LayerMask MainCamMask;
+
+	private Camera playerCam;
 	// Use this for initialization
 	void Start () {
 		VisionTrigger = GetComponent<SphereCollider>();
 		VisibleObjects = new List<GameObject>();
+		playerCam = Camera.main.transform.GetChild(0).GetComponent<Camera>();
 	}
 
 	void Update()
@@ -55,23 +62,29 @@ public class Vision : MonoBehaviour {
 				if(!reverse)
 				{
 					//float debug = cycleSpeed * Time.deltaTime;
-					float rimPower = mat.GetFloat("_RimPower") + cycleSpeed * Time.deltaTime;
-					//Debug.Log("if " + debug);
-					mat.SetFloat("_RimPower", Mathf.Clamp(rimPower, minRim, maxRim));
-					if(mat.GetFloat("_RimPower") >= maxRim)
+					if(mat.HasProperty("_RimPower"))
 					{
-						reverse = true;
+						float rimPower = mat.GetFloat("_RimPower") + cycleSpeed * Time.deltaTime;
+						//Debug.Log("if " + debug);
+						mat.SetFloat("_RimPower", Mathf.Clamp(rimPower, minRim, maxRim));
+						if(mat.GetFloat("_RimPower") >= maxRim)
+						{
+							reverse = true;
+						}
 					}
 				}
 				else
 				{
 					//float debug = cycleSpeed * Time.deltaTime;
 					//Debug.Log("else " + debug);
-					float rimPower = mat.GetFloat("_RimPower") - cycleSpeed * Time.deltaTime;
-					mat.SetFloat("_RimPower", Mathf.Clamp(rimPower, minRim, maxRim));
-					if(mat.GetFloat("_RimPower") <= minRim)
+					if(mat.HasProperty("_RimPower"))
 					{
-						reverse = false;
+						float rimPower = mat.GetFloat("_RimPower") - cycleSpeed * Time.deltaTime;
+						mat.SetFloat("_RimPower", Mathf.Clamp(rimPower, minRim, maxRim));
+						if(mat.GetFloat("_RimPower") <= minRim)
+						{
+							reverse = false;
+						}
 					}
 				}
 
@@ -86,6 +99,9 @@ public class Vision : MonoBehaviour {
 	{
 		isVisionActive = true;
 		VisionTrigger.enabled = true;
+		Camera.main.cullingMask = activeVisionMain;
+		playerCam.cullingMask = activeVisionPlayer;
+		StartCoroutine(lerpCameraFar());
 		//Debug.Log("Vision " +  isVisionActive);
 		
 	}
@@ -95,7 +111,10 @@ public class Vision : MonoBehaviour {
 		ClearVisibleObjects();
 		isVisionActive = false;
 		VisionTrigger.enabled = false;
-
+		Camera.main.cullingMask = MainCamMask;
+		playerCam.cullingMask = PlayerCameraMask;
+		StopCoroutine(lerpCameraFar());
+		playerCam.farClipPlane = 5f;
 		//Debug.Log("Vision " +  isVisionActive);
 	}
 
@@ -171,6 +190,17 @@ public class Vision : MonoBehaviour {
 				VisibleObjects.Remove(col.gameObject);
 			}
 		}
+	}
+
+	IEnumerator lerpCameraFar()
+	{
+		while(playerCam.farClipPlane < 100)
+		{
+			playerCam.farClipPlane += Time.deltaTime * 40;
+			yield return null;
+		}
+
+		yield return null;
 	}
 
 }

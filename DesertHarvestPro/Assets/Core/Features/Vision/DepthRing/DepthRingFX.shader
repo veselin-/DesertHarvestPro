@@ -42,8 +42,9 @@ half4 frag (v2f i) : COLOR{
    //extract the value of depth for each screen position from _CameraDepthExture
    float depthValue = Linear01Depth (tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.scrPos)).r);
 
+	#if UNITY_EDITOR_WIN
 	 i.scrPos.y =  1 - i.scrPos.y;
-
+	#endif
 
   
    fixed4 orgColor = tex2Dproj(_MainTex, i.scrPos); //Get the orginal rendered color
@@ -52,7 +53,7 @@ half4 frag (v2f i) : COLOR{
 
    float t =  ((_Time.y - _StartingTime)/_RingPassTimeLength );
    float t2 = 1 - ((_Time.y - _StartingTime)/(_RingPassTimeLength) );
-   float far = 0.4;
+   float far = 0.1;
   // float close = 0.4;
    
    //the script attached to the camera will set _RunRingPass to 1 and then will start the ring pass

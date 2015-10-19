@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 //so that we can see changes we make without having to run the game
 
 [ExecuteInEditMode]
-public class PostProcessDepthGrayscale : MonoBehaviour {
+public class PostProcessGrayDepth : MonoBehaviour {
 	
 	public Material mat;
 	
