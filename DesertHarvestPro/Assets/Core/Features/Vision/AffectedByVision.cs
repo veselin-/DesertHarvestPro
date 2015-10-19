@@ -58,11 +58,11 @@ public class AffectedByVision : MonoBehaviour {
 	void ApplySpiceVision()
 	{
 		Material mat = new Material(spiceVisionMat);
-		if(defaultMat.GetTexture("_MainTex") != null)
+		if(defaultMat.HasProperty("_MainTex"))
 		{
 			mat.SetTexture("_MainTex", defaultMat.GetTexture("_MainTex"));
 		}
-		if(defaultMat.GetTexture("_BumpMap") != null)
+		if(defaultMat.HasProperty("_BumpMap"))
 		{
 			mat.SetTexture("_BumpMap", defaultMat.GetTexture("_BumpMap"));
 		}
@@ -72,11 +72,11 @@ public class AffectedByVision : MonoBehaviour {
 	void ApplyWaterVision()
 	{
 		Material mat = new Material(waterVisionMat);
-		if(defaultMat.GetTexture("_MainTex") != null)
+		if(defaultMat.HasProperty("_MainTex"))
 		{
 			mat.SetTexture("_MainTex", defaultMat.GetTexture("_MainTex"));
 		}
-		if(defaultMat.GetTexture("_BumpMap") != null)
+		if(defaultMat.HasProperty("_BumpMap"))
 		{
 			mat.SetTexture("_BumpMap", defaultMat.GetTexture("_BumpMap"));
 		}

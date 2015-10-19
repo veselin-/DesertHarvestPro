@@ -53,7 +53,7 @@ half4 frag (v2f i) : COLOR{
    float depthValue = Linear01Depth (tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.scrPos)).r);
    half4 depth;
    float far = 0.9;
-   float close = 0.4;
+   float close = 0.3;
    
    fixed4 orgColor = tex2Dproj(_MainTex, i.scrPos); //Get the orginal rendered color
    //half2 distort = tex2D(_MainTex, i.texcoord.xy).xy;
@@ -62,8 +62,8 @@ half4 frag (v2f i) : COLOR{
     
     float factor = ( 3.14) / 0.5; 
    
-    aux.x = aux.x + (sin(aux.y * factor + _Time.gg * 7) * 0.005);
-    aux.y = aux.y + (sin(aux.x * factor + _Time.gg * 7) * 0.005);
+    aux.x = aux.x + (sin(aux.y * factor + _Time.gg * 7) * 0.002);
+    aux.y = aux.y + (sin(aux.x * factor + _Time.gg * 7) * 0.001);
    if (depthValue < far && depthValue > close)
    {
     
