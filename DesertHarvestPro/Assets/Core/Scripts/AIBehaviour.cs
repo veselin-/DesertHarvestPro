@@ -15,6 +15,8 @@ public class AIBehaviour : MonoBehaviour {
 
     private VisionControl vision;
     private float searchTimer;
+
+    private bool isLooking;
     // Use this for initialization
     void Start () {
 
@@ -22,6 +24,8 @@ public class AIBehaviour : MonoBehaviour {
         nav = GetComponent<AICharacterControl>();
 
         waypointIndex = 0;
+
+        isLooking = false;
 
         currentWaypoint = Waypoints[waypointIndex];
 
@@ -40,6 +44,7 @@ public class AIBehaviour : MonoBehaviour {
         {
             //Search: See player = Combat. Unable to find player = Patrol after 5 secs.
             case "Search":
+                Debug.Log("Searching...");
 
                 nav.agent.speed = 0.8f;
 
@@ -49,16 +54,26 @@ public class AIBehaviour : MonoBehaviour {
                 {
                     state = "Combat";
                     searchTimer = 0f;
+                    StopCoroutine("searchTurn");
+                    break;
                 }
                 else
                 {
                     nav.target = vision.lastKnownPlayerPosition;
+                    if (!isLooking)
+                    {
+                        isLooking = true;
+                        StartCoroutine(searchTurn());
+                    }
                 }
 
-                if(!vision.PlayerIsVisible && searchTimer > 5f)
+
+
+                if(!vision.PlayerIsVisible && searchTimer > 20f)
                 {
                     state = "Patrol";
                     searchTimer = 0f;
+                    StopCoroutine("searchTurn");
                 }
 
                 break;
@@ -66,21 +81,19 @@ public class AIBehaviour : MonoBehaviour {
             //Combat: See player = Attack. If player is out of range = Follow player. PLayer out of sight = Search.
             case "Combat":
 
+                isLooking = false;
+
+                Debug.Log("Combating...");
+
                 nav.agent.speed = 1f;
 
-                if (Vector3.Distance(transform.position, vision.lastKnownPlayerPosition) > 10f && vision.PlayerIsVisible)
-                {
-
-                    nav.target = vision.lastKnownPlayerPosition;
-
-                }
-                else if(vision.PlayerIsVisible)
+                if(vision.PlayerIsVisible)
                 {
                     nav.agent.speed = 0f;
-                    float step = 1f * Time.deltaTime;
-                    Vector3 newDir = Vector3.RotateTowards(transform.forward, new Vector3( vision.lastKnownPlayerPosition.x, 0f, vision.lastKnownPlayerPosition.y), step, 0.0F);
-                    transform.rotation = Quaternion.LookRotation(newDir);
-                    Debug.Log("Bang bang bang!!");
+                   Vector3 dir = vision.lastKnownPlayerPosition - transform.position;
+                    dir.y = 0;
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 5 * Time.deltaTime);
+                   // Debug.Log("Bang bang bang!!");
                 }
                 else
                 {
@@ -92,7 +105,13 @@ public class AIBehaviour : MonoBehaviour {
             //Patrol: Player not detected = Patrol waypoints. See player = Combat.
             case "Patrol":
 
+                isLooking = false;
+
+                Debug.Log("Patrolling...");
+
                 nav.agent.speed = 0.5f;
+
+                nav.target = currentWaypoint.transform.position;
                 if (Vector3.Distance(transform.position, currentWaypoint.transform.position) < 2f)
                 {
                     
@@ -102,16 +121,29 @@ public class AIBehaviour : MonoBehaviour {
                         waypointIndex = 0;
 
                     currentWaypoint = Waypoints[waypointIndex];
-                    nav.target = currentWaypoint.transform.position;
+                   
                 }
 
                 if (vision.PlayerIsVisible)
                 {
-                    state = "Search";
+                    state = "Combat";
                 }
 
                 break;
 
         }
+
 	}
+
+    IEnumerator searchTurn()
+    {
+        Debug.Log("Soldier is turning");
+
+        Quaternion startRot = transform.rotation;
+        Quaternion endRot = new Quaternion(transform.rotation.x, transform.rotation.y - 180, transform.rotation.z, 0);
+
+        transform.rotation = Quaternion.Slerp(startRot,endRot, 1 * Time.deltaTime);
+
+        yield return null;
+    }
 }
