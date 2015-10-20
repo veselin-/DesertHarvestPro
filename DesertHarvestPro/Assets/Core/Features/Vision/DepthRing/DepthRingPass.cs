@@ -19,7 +19,7 @@ public class DepthRingPass : MonoBehaviour {
 		}
 		else if (Input.GetKeyUp(KeyCode.E) || Input.GetMouseButtonUp(1)){
 			mat.SetFloat("_StartingTime", Time.time);
-			mat.SetFloat("_RunRingPass", 2);
+			mat.SetFloat("_RunRingPass", 0);
 		}
 
 	}

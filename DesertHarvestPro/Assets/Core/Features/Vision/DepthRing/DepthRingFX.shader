@@ -43,9 +43,13 @@ half4 frag (v2f i) : COLOR{
    float depthValue = Linear01Depth (tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.scrPos)).r);
 
 	
-	 i.scrPos.y =  1 - i.scrPos.y;
+	//i.scrPos.y =  1 - i.scrPos.y;
 	
-
+	#if UNITY_EDITOR_OSX
+		 
+	#else
+		//i.scrPos.y =  1 - i.scrPos.y;
+	#endif
   
    fixed4 orgColor = tex2Dproj(_MainTex, i.scrPos); //Get the orginal rendered color
    float4 newColor; //the color after the ring has passed

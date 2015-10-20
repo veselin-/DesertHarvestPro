@@ -10,6 +10,9 @@ public class PlayerManager : MonoBehaviour {
 	private float WaterLimit = 80f;
 	private float SpiceLimit = 80f;
 
+	public float SubtractWater = 2.5f;
+	public float repeatInterval = 10f;
+
 	private UIManager UI;
 	// Use this for initialization
 	void Start () {
@@ -17,12 +20,18 @@ public class PlayerManager : MonoBehaviour {
 
 		UI.SetSpice(SpiceAmount);
 		UI.SetWater(WaterAmount);
+		InvokeRepeating("LoseWater", Time.timeSinceLevelLoad, repeatInterval);
 	}
-	
-	// Update is called once per frame
-	//void Update () {
-	
-	//}
+
+	void LoseWater()
+	{
+		if(WaterAmount > -1)
+		{
+			RemoveWater(SubtractWater);
+			//WaterAmount -= SubtractWater;
+			UIWater();
+		}
+	}
 
 	public void UISpice()
 	{
@@ -51,7 +60,7 @@ public class PlayerManager : MonoBehaviour {
 	public void RemoveSpice(float amount)
 	{
 		SpiceAmount -= amount;
-		if(SpiceAmount < 0)
+		if(SpiceAmount <= 0)
 		{
 			SpiceAmount = 0;
 		}
@@ -84,11 +93,14 @@ public class PlayerManager : MonoBehaviour {
 
 	public void Die()
 	{
-        //Time.timeScale = 0;
+
+		CancelInvoke();
         GetComponent<Animator>().SetTrigger("Die");
+
+		GameObject.FindObjectOfType<Vision>().enabled = false;
 		GetComponent<ThirdPersonUserControl>().enabled = false;
 		UI.DeathScreen.SetActive(true);
-		Camera.main.GetComponent<DeathDepthRing>().enableBlast = true;
+		Camera.main.GetComponent<DeathDepthRing>().Blast();
 	}
 
 	public void WinGame()
