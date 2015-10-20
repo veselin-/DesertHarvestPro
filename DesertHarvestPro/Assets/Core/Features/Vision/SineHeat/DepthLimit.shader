@@ -38,7 +38,7 @@ v2f vert (appdata_t v){
    o.scrPos=ComputeScreenPos(o.pos);
    o.texcoord = v.texcoord;
    //for some reason, the y position of the depth texture comes out inverted
-   //o.scrPos.y = 1 - o.scrPos.y;
+  
    
    	// texcoord.xy stores the distortion texture coordinates.
 	//o.texcoord.xy = TRANSFORM_TEX(v.texcoord, _MainTex); // Apply texture tiling and offset.
@@ -51,6 +51,7 @@ sampler2D _MainTex; //Reference in Pass is necessary to let us use this variable
 float _CloseDepth;
 //Fragment Shader
 half4 frag (v2f i) : COLOR{
+   // i.scrPos.y = 1 - i.scrPos.y;
    float depthValue = Linear01Depth (tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.scrPos)).r);
    half4 depth;
    float far = 0.9;

@@ -102,7 +102,7 @@ public class PlayerManager : MonoBehaviour {
 
 		CancelInvoke();
         GetComponent<Animator>().SetTrigger("Die");
-		Camera.main.GetComponent<DepthRingPass>().enabled = false;
+		//Camera.main.GetComponent<DepthRingPass>().enabled = false;
 		GameObject.FindObjectOfType<Vision>().enabled = false;
 		GetComponent<ThirdPersonUserControl>().enabled = false;
 
@@ -119,7 +119,7 @@ public class PlayerManager : MonoBehaviour {
 
 	public void WinGame()
 	{
-		Camera.main.GetComponent<DepthRingPass>().enabled = false;
+		//Camera.main.GetComponent<DepthRingPass>().enabled = false;
 		GameObject.FindObjectOfType<Vision>().enabled = false;
 		GetComponent<ThirdPersonUserControl>().enabled = false;
 
