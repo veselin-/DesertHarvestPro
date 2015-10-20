@@ -93,8 +93,10 @@ public class PlayerManager : MonoBehaviour {
 
 	public void Die()
 	{
-		//Time.timeScale = 0;
+
 		CancelInvoke();
+        GetComponent<Animator>().SetTrigger("Die");
+
 		GameObject.FindObjectOfType<Vision>().enabled = false;
 		GetComponent<ThirdPersonUserControl>().enabled = false;
 		UI.DeathScreen.SetActive(true);
@@ -106,6 +108,8 @@ public class PlayerManager : MonoBehaviour {
 		GetComponent<ThirdPersonUserControl>().enabled = false;
 		UI.WinScreen.SetActive(true);
 	}
+
+
 
 	/*
 	public void LoseGame()
