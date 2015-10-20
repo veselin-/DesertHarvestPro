@@ -2869,7 +2869,7 @@ Animator:
   m_GameObject: {fileID: 171020}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b235179bd2a63d1468dd430670338c55, type: 3}
-  m_Controller: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}
+  m_Controller: {fileID: 9100000, guid: c5906522d145b5a4899533ce1514d094, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -2940,7 +2940,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  gun: {fileID: 0}
+  gun: {fileID: 173404}
 --- !u!135 &13557666
 SphereCollider:
   m_ObjectHideFlags: 1

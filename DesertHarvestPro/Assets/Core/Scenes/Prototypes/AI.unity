@@ -94,15 +94,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 401486, guid: 04f401636beba455f8132908d63f93c6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 34.1272888
+      value: 39.5600014
       objectReference: {fileID: 0}
     - target: {fileID: 401486, guid: 04f401636beba455f8132908d63f93c6, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2.21000004
+      value: .74000001
       objectReference: {fileID: 0}
     - target: {fileID: 401486, guid: 04f401636beba455f8132908d63f93c6, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 11.462472
+      value: 1.34000003
       objectReference: {fileID: 0}
     - target: {fileID: 401486, guid: 04f401636beba455f8132908d63f93c6, type: 2}
       propertyPath: m_LocalRotation.x
@@ -446,17 +446,9 @@ Prefab:
       propertyPath: Waypoints.Array.data[3]
       value: 
       objectReference: {fileID: 877450102}
-    - target: {fileID: 11496328, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
-      propertyPath: gun
-      value: 
-      objectReference: {fileID: 598036448}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &598036448 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 173404, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
-  m_PrefabInternal: {fileID: 598036447}
 --- !u!1001 &709383594
 Prefab:
   m_ObjectHideFlags: 0
