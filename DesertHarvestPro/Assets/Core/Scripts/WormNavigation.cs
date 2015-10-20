@@ -54,6 +54,7 @@ public class WormNavigation : MonoBehaviour {
                 nav.SetDestination(Waypoint.transform.position);
 
                 break;
+
             case "Hunt":
 
                 nav.SetDestination(playerPosition);
@@ -62,6 +63,7 @@ public class WormNavigation : MonoBehaviour {
                     state = "Attack";
 
                 break;
+
             case "Attack":
 
 
