@@ -85,6 +85,7 @@ public class PlayerManager : MonoBehaviour {
 	public void Die()
 	{
         //Time.timeScale = 0;
+        
         GetComponent<Animator>().SetTrigger("Die");
 		GetComponent<ThirdPersonUserControl>().enabled = false;
 		UI.DeathScreen.SetActive(true);

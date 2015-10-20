@@ -154,9 +154,6 @@ public class AIBehaviour : MonoBehaviour {
 
         float elapsedTime = 0f;
 
-        Quaternion startRot = transform.rotation;
-        Quaternion endRot = new Quaternion(transform.rotation.x, transform.rotation.y - 180, transform.rotation.z, 0);
-
 
         while (elapsedTime < turnTime)
         {
@@ -172,7 +169,7 @@ public class AIBehaviour : MonoBehaviour {
         Debug.Log("Bang!!");
         RaycastHit hit;
 
-        Debug.DrawRay(gun.transform.position, transform.forward, Color.green, 0.5f);
+        Debug.DrawRay(gun.transform.position, transform.forward*10, Color.red, 0.5f);
 
         if (Physics.Raycast(gun.transform.position, transform.forward, out hit, 100f))
         {
