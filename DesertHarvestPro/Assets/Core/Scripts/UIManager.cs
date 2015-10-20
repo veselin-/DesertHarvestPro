@@ -12,17 +12,21 @@ public class UIManager : MonoBehaviour {
 
 	private bool pause = false;
 	private float animSpeed = 0.2f;
-
+	private AudioManager aManager;
 	// Use this for initialization
 	void Start () {
-		
+		aManager = GameObject.FindObjectOfType<AudioManager>();
 	}
 
 	void Update()
 	{
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
-			PauseGame();
+			if(PauseScreen != null)
+			{
+				aManager.clickPlay();
+				PauseGame();
+			}
 		}
 	}
 
@@ -44,21 +48,25 @@ public class UIManager : MonoBehaviour {
 
 	public void RestartLevel()
 	{
+		aManager.clickPlay();
 		Application.LoadLevel("Terrain");
 	}
 
 	public void MainMenu()
 	{
+		aManager.clickPlay();
 		Application.LoadLevel("MainMenu");
 	}
 
 	public void QuitGame()
 	{
+		aManager.clickPlay();
 		Application.Quit();
 	}
 
 	public void StartGame()
 	{
+		aManager.clickPlay();
 		Application.LoadLevel("Terrain");
 	}
 

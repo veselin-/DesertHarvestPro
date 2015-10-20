@@ -17,13 +17,20 @@ public class Vision : MonoBehaviour {
 	public LayerMask activeVisionPlayer;
 	public LayerMask PlayerCameraMask;
 	public LayerMask MainCamMask;
+	private PlayerManager pm;
 
+	public float consumeSpice = 5f;
+	public float consumeSpiceOverTime = 1f;
+
+	private AudioManager aManager;
 	private Camera playerCam;
 	// Use this for initialization
 	void Start () {
 		VisionTrigger = GetComponent<SphereCollider>();
 		VisibleObjects = new List<GameObject>();
 		playerCam = Camera.main.transform.GetChild(0).GetComponent<Camera>();
+		pm = transform.parent.GetComponent<PlayerManager>();
+		aManager = GameObject.FindObjectOfType<AudioManager>();
 	}
 
 	void Update()
@@ -97,22 +104,46 @@ public class Vision : MonoBehaviour {
 
 	void OnDisable()
 	{
-		Camera.main.GetComponent<DepthRingPass>().enabled = false;
+
 	}
 
 	void ActivateVision()
 	{
-		isVisionActive = true;
-		VisionTrigger.enabled = true;
-		Camera.main.cullingMask = activeVisionMain;
-		playerCam.cullingMask = activeVisionPlayer;
-		StartCoroutine(lerpCameraFar());
-		//Debug.Log("Vision " +  isVisionActive);
+		if(pm.GetSpice() > 0)
+		{
+			aManager.visionPlay();
+			Material mat = Camera.main.GetComponent<DepthRingPass>().mat;
+			//set _StartingTime to current time
+			mat.SetFloat("_StartingTime", Time.timeSinceLevelLoad);
+			//set _RunRingPass to 1 to start the ring
+			mat.SetFloat("_RunRingPass", 1);
+
+			isVisionActive = true;
+			VisionTrigger.enabled = true;
+			Camera.main.cullingMask = activeVisionMain;
+			playerCam.cullingMask = activeVisionPlayer;
+			StartCoroutine(lerpCameraFar());
+			//Debug.Log("Vision " +  isVisionActive);
+			//pm.RemoveSpice(consumeSpice);
+			StartCoroutine(ConsumeSpiceWhileVision());
+			//InvokeRepeating("ConsumeSpiceWhileVision", Time.time, consumeSpiceOverTime);
+		}
+		else
+		{
+			Debug.Log("Not Enough spice");
+		}
 		
 	}
 	
 	void DeactivateVision()
 	{
+		aManager.visionStop();
+		Material mat = Camera.main.GetComponent<DepthRingPass>().mat;
+		//set _StartingTime to current time
+		mat.SetFloat("_StartingTime", Time.timeSinceLevelLoad);
+		//set _RunRingPass to 1 to start the ring
+		mat.SetFloat("_RunRingPass", 0);
+
 		ClearVisibleObjects();
 		isVisionActive = false;
 		VisionTrigger.enabled = false;
@@ -120,7 +151,20 @@ public class Vision : MonoBehaviour {
 		playerCam.cullingMask = PlayerCameraMask;
 		StopCoroutine(lerpCameraFar());
 		playerCam.farClipPlane = 5f;
+		StopCoroutine(ConsumeSpiceWhileVision());
 		//Debug.Log("Vision " +  isVisionActive);
+	}
+
+	IEnumerator ConsumeSpiceWhileVision()
+	{
+		while(pm.GetSpice() > 0 && isVisionActive)
+		{
+			pm.RemoveSpice(consumeSpice);
+			yield return new WaitForSeconds(consumeSpiceOverTime);
+		}
+
+		DeactivateVision();
+		yield return null;
 	}
 
 	public void RemoveFromVisibleObjects(GameObject g)
@@ -196,6 +240,7 @@ public class Vision : MonoBehaviour {
 			}
 		}
 	}
+	
 
 	IEnumerator lerpCameraFar()
 	{

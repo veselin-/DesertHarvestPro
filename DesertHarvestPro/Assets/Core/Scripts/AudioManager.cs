@@ -3,9 +3,12 @@ using System.Collections;
 
 public class AudioManager : MonoBehaviour {
 
-	public AudioSource music;
+	public AudioSource MenuMusic;
+	public AudioSource GameMusic;
 	public AudioSource pickSpice;
 	public AudioSource pickWater;
+	public AudioSource click;
+	public AudioSource vision;
 
 
 	// Use this for initialization
@@ -13,14 +16,24 @@ public class AudioManager : MonoBehaviour {
 	
 	}
 
-	public void musicPlay()
+	public void MenuMusicPlay()
 	{
-		music.Play();
+		MenuMusic.Play();
 	}
 
-	public void musicStop()
+	public void MenuMusicStop()
 	{
-		music.Stop();
+		MenuMusic.Stop();
+	}
+
+	public void GameMusicPlay()
+	{
+		GameMusic.Play();
+	}
+	
+	public void GameMusicStop()
+	{
+		GameMusic.Stop();
 	}
 
 	public void pickSpicePlay()
@@ -42,6 +55,28 @@ public class AudioManager : MonoBehaviour {
 	public void pickWaterStop()
 	{
 		pickWater.Stop();
+	}
+
+	public void clickPlay()
+	{
+		click.Play();
+	}
+	
+	
+	public void clickStop()
+	{
+		click.Stop();
+	}
+
+	public void visionPlay()
+	{
+		vision.Play();
+	}
+	
+	
+	public void visionStop()
+	{
+		vision.Stop();
 	}
 
 }
