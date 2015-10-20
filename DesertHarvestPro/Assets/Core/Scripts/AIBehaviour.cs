@@ -5,6 +5,7 @@ using UnityStandardAssets.Characters.ThirdPerson;
 public class AIBehaviour : MonoBehaviour {
 
     private AICharacterControl nav;
+    private Animator ani;
 
     private string state;
     private string subState;
@@ -22,6 +23,7 @@ public class AIBehaviour : MonoBehaviour {
 
         vision = GetComponent<VisionControl>();
         nav = GetComponent<AICharacterControl>();
+        ani = GetComponent<Animator>();
 
         waypointIndex = 0;
 
@@ -44,8 +46,9 @@ public class AIBehaviour : MonoBehaviour {
         {
             //Search: See player = Combat. Unable to find player = Patrol after 5 secs.
             case "Search":
-            //    Debug.Log("Searching...");
-
+                //    Debug.Log("Searching...");
+                ani.SetBool("IsInCombat", false);
+                Debug.Log("ExitCombat");
                 nav.agent.speed = 0.8f;
 
                 searchTimer += Time.deltaTime;
@@ -81,6 +84,9 @@ public class AIBehaviour : MonoBehaviour {
             //Combat: See player = Attack. If player is out of range = Follow player. PLayer out of sight = Search.
             case "Combat":
 
+                ani.SetBool("IsInCombat", true);
+                Debug.Log("EnterCombat");
+
                 isLooking = false;
 
               //  Debug.Log("Combating...");
@@ -107,7 +113,10 @@ public class AIBehaviour : MonoBehaviour {
 
                 isLooking = false;
 
-               // Debug.Log("Patrolling...");
+                ani.SetBool("IsInCombat", false);
+                Debug.Log("ExitCombat");
+
+                // Debug.Log("Patrolling...");
 
                 nav.agent.speed = 0.5f;
 
@@ -154,5 +163,9 @@ public class AIBehaviour : MonoBehaviour {
         }
 
         
+    }
+    void Shoot()
+    {
+        Debug.Log("Bang!!");
     }
 }
