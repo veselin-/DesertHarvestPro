@@ -19,6 +19,8 @@ public class WormNavigation : MonoBehaviour {
     private Vector3 playerPosition;
     private Vector2 randomPosition;
 
+    private NavMeshPath path;
+
 
     // Use this for initialization
     void Start () {
@@ -40,6 +42,16 @@ public class WormNavigation : MonoBehaviour {
         switch (state)
         {
             case "Wander":
+
+             //   if(!NavMesh.CalculatePath(nav.transform.position, Waypoint.transform.position, NavMesh.AllAreas, path))
+              //  {
+              //      randomPosition = (Random.insideUnitCircle * GetComponent<SphereCollider>().radius);
+             //       targetPosition = new Vector3(randomPosition.x + transform.position.x, transform.position.y, randomPosition.y + transform.position.z);
+             //
+             //       Waypoint.transform.position = targetPosition;
+             //
+             //       Debug.Log("New target.");
+             //   }
 
                 if (Vector3.Distance(nav.transform.position, Waypoint.transform.position) < nav.radius + 1f)
                 {
