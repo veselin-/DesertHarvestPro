@@ -18,6 +18,8 @@ public class AIBehaviour : MonoBehaviour {
     private float searchTimer;
 
     private bool isLooking;
+
+    public GameObject gun;
     // Use this for initialization
     void Start () {
 
@@ -166,6 +168,20 @@ public class AIBehaviour : MonoBehaviour {
     }
     void Shoot()
     {
+
         Debug.Log("Bang!!");
+        RaycastHit hit;
+
+        Debug.DrawRay(gun.transform.position, transform.forward, Color.green, 0.5f);
+
+        if (Physics.Raycast(gun.transform.position, transform.forward, out hit, 100f))
+        {
+
+            // Debug.Log(hit.collider.name);
+            if (hit.collider.gameObject.tag == "Player")
+            {
+                hit.collider.GetComponent<PlayerManager>().Die();
+            }
+        }
     }
 }
