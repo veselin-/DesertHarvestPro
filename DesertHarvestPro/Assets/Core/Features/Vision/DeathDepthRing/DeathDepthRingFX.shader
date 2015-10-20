@@ -42,7 +42,7 @@ half4 frag (v2f i) : COLOR{
 
    //extract the value of depth for each screen position from _CameraDepthExture
    float depthValue = Linear01Depth (tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.scrPos)).r);
-
+   
    fixed4 orgColor = tex2Dproj(_MainTex, i.scrPos); //Get the orginal rendered color
    float4 newColor; //the color after the ring has passed
    half4 lightRing; //the ring of light that will pass through the dpeth

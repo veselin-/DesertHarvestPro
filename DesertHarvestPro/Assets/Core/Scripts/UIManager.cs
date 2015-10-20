@@ -44,7 +44,7 @@ public class UIManager : MonoBehaviour {
 
 	public void RestartLevel()
 	{
-		Application.LoadLevel(Application.loadedLevel);
+		Application.LoadLevel("Terrain");
 	}
 
 	public void MainMenu()

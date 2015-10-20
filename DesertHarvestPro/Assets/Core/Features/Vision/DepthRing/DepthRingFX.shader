@@ -42,9 +42,9 @@ half4 frag (v2f i) : COLOR{
    //extract the value of depth for each screen position from _CameraDepthExture
    float depthValue = Linear01Depth (tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.scrPos)).r);
 
-	#if UNITY_EDITOR_WIN
+	
 	 i.scrPos.y =  1 - i.scrPos.y;
-	#endif
+	
 
   
    fixed4 orgColor = tex2Dproj(_MainTex, i.scrPos); //Get the orginal rendered color
