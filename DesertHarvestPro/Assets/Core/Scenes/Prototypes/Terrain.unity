@@ -600,7 +600,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!1001 &338750390
 Prefab:
   m_ObjectHideFlags: 0
@@ -854,10 +854,6 @@ RectTransform:
   m_AnchoredPosition: {x: -.0340003967, y: .00800037384}
   m_SizeDelta: {x: .0599994659, y: 0}
   m_Pivot: {x: .5, y: .5}
---- !u!1 &581803329 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 171020, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
-  m_PrefabInternal: {fileID: 1166352137}
 --- !u!1 &616584754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1749,7 +1745,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 411072, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 471078, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2508,7 +2504,7 @@ Prefab:
     - target: {fileID: 11450856, guid: c635eb9b74f87db4387ae3eb545e6b12, type: 2}
       propertyPath: solder
       value: 
-      objectReference: {fileID: 581803329}
+      objectReference: {fileID: 171020, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
     - target: {fileID: 11450856, guid: c635eb9b74f87db4387ae3eb545e6b12, type: 2}
       propertyPath: m_tree0
       value: 
@@ -2544,6 +2540,10 @@ Prefab:
     - target: {fileID: 11450856, guid: c635eb9b74f87db4387ae3eb545e6b12, type: 2}
       propertyPath: waterSpacing
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450856, guid: c635eb9b74f87db4387ae3eb545e6b12, type: 2}
+      propertyPath: soldierSpacing
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c635eb9b74f87db4387ae3eb545e6b12, type: 2}

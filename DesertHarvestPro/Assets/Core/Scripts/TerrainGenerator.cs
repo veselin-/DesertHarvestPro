@@ -10,6 +10,7 @@ public class TerrainGenerator : MonoBehaviour
 	public float m_splatTileSize1 = 2.0f;
 	public Texture2D m_detail0, m_detail1, m_detail2;
     public GameObject solder;
+    public GameObject worm;
     public GameObject spice;
     public GameObject[] cliff;
     public GameObject[] water;
@@ -17,6 +18,7 @@ public class TerrainGenerator : MonoBehaviour
     public int spiceSpacing = 120;
     public int waterSpacing = 80;
     public int soldierSpacing = 150;
+    public int wormSpacing = 150;
 	public GameObject m_tree0, m_tree1, m_tree2;
 	//Noise settings. A higher frq will create larger scale details. Each seed value will create a unique look
 	public int m_groundSeed = 0;
@@ -131,11 +133,13 @@ public class TerrainGenerator : MonoBehaviour
 				m_terrain[x,z].castShadows = false;
 				
 				//FillTreeInstances(m_terrain[x,z], x, z);
-                FillSoldierInstances(m_terrain[x, z], x, z);
+               
                 FillCliffs(m_terrain[x, z], x, z);
                 FillCliffs2(m_terrain[x, z], x, z);
                 FillSpice(m_terrain[x, z], x, z);
                 FillWater(m_terrain[x, z], x, z);
+                FillSoldierInstances(m_terrain[x, z], x, z);
+                FillWormInstances(m_terrain[x, z], x, z);
 				//FillDetailMap(m_terrain[x,z], x, z);
 			}
 		}
@@ -374,6 +378,51 @@ public class TerrainGenerator : MonoBehaviour
 
     }
 
+    void FillWormInstances(Terrain terrain, int tileX, int tileZ)
+    {
+        Random.seed = 6;
+
+
+        for (int x = 0; x < m_terrainSize; x += wormSpacing)
+        {
+            for (int z = 0; z < m_terrainSize; z += wormSpacing)
+            {
+                float unit = 1.0f / (m_terrainSize - 1);
+
+                float offsetX = Random.value * unit * wormSpacing;
+                float offsetZ = Random.value * unit * wormSpacing;
+
+                float normX = x * unit + offsetX;
+                float normZ = z * unit + offsetZ;
+
+                // Get the steepness value at the normalized coordinate.
+                float angle = terrain.terrainData.GetSteepness(normX, normZ);
+
+                // Steepness is given as an angle, 0..90 degrees. Divide
+                // by 90 to get an alpha blending value in the range 0..1.
+                float frac = angle / 90.0f;
+
+                if (frac < 0.5f) //make sure tree are not on steep slopes
+                {
+                    float worldPosX = x + tileX * (m_terrainSize - 1);
+                    float worldPosZ = z + tileZ * (m_terrainSize - 1);
+
+                    float noise = m_treeNoise.FractalNoise2D(worldPosX, worldPosZ, 3, m_treeFrq, 1.0f);
+                    float ht = terrain.terrainData.GetInterpolatedHeight(normX, normZ);
+
+                    if (noise > 0.0f && ht < m_terrainHeight * 0.4f)
+                    {
+
+                        GameObject obj = Instantiate(worm,
+                             new Vector3(worldPosX - 1024 + offsetX / unit, ht, worldPosZ - 1024 + offsetZ / unit),
+                             Quaternion.identity) as GameObject;
+
+                    }
+                }
+            }
+        }
+
+    }
     void FillCliffs(Terrain terrain, int tileX, int tileZ)
     {
         Random.seed = 11;

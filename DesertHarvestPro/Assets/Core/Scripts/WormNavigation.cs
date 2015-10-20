@@ -24,7 +24,7 @@ public class WormNavigation : MonoBehaviour {
     void Start () {
         randomPosition = (Random.insideUnitCircle * GetComponent<SphereCollider>().radius);
 
-        targetPosition = new Vector3(randomPosition.x, 0, randomPosition.y);
+        targetPosition = new Vector3(randomPosition.x + transform.position.x, transform.position.y, randomPosition.y + transform.position.z);
 
         Waypoint.transform.position = targetPosition;
 
@@ -44,7 +44,7 @@ public class WormNavigation : MonoBehaviour {
                 if (Vector3.Distance(nav.transform.position, Waypoint.transform.position) < nav.radius + 1f)
                 {
                     randomPosition = (Random.insideUnitCircle * GetComponent<SphereCollider>().radius);
-                    targetPosition = new Vector3(randomPosition.x + transform.position.x, 0, randomPosition.y + transform.position.z);
+                    targetPosition = new Vector3(randomPosition.x + transform.position.x, transform.position.y, randomPosition.y + transform.position.z);
 
                     Waypoint.transform.position = targetPosition;
 
