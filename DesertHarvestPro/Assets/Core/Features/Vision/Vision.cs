@@ -22,6 +22,7 @@ public class Vision : MonoBehaviour {
 	public float consumeSpice = 5f;
 	public float consumeSpiceOverTime = 1f;
 
+	private AudioManager aManager;
 	private Camera playerCam;
 	// Use this for initialization
 	void Start () {
@@ -29,6 +30,7 @@ public class Vision : MonoBehaviour {
 		VisibleObjects = new List<GameObject>();
 		playerCam = Camera.main.transform.GetChild(0).GetComponent<Camera>();
 		pm = transform.parent.GetComponent<PlayerManager>();
+		aManager = GameObject.FindObjectOfType<AudioManager>();
 	}
 
 	void Update()
@@ -109,6 +111,7 @@ public class Vision : MonoBehaviour {
 	{
 		if(pm.GetSpice() > 0)
 		{
+			aManager.visionPlay();
 			Material mat = Camera.main.GetComponent<DepthRingPass>().mat;
 			//set _StartingTime to current time
 			mat.SetFloat("_StartingTime", Time.timeSinceLevelLoad);
@@ -134,6 +137,7 @@ public class Vision : MonoBehaviour {
 	
 	void DeactivateVision()
 	{
+		aManager.visionStop();
 		Material mat = Camera.main.GetComponent<DepthRingPass>().mat;
 		//set _StartingTime to current time
 		mat.SetFloat("_StartingTime", Time.timeSinceLevelLoad);
