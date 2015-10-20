@@ -25,6 +25,10 @@ Material:
     m_Floats:
       data:
         first:
+          name: _InvFade
+        second: .400000006
+      data:
+        first:
           name: _CullMode
         second: 2
       data:
@@ -45,10 +49,6 @@ Material:
         second: 0
       data:
         first:
-          name: _InvFade
-        second: .400000006
-      data:
-        first:
           name: _CullMode1
         second: 0
     m_Colors:
@@ -63,7 +63,7 @@ Material:
       data:
         first:
           name: _DistanceFade
-        second: {r: 0, g: 40, b: 0, a: 0}
+        second: {r: 0, g: 0, b: 0, a: 0}
       data:
         first:
           name: _Intensity

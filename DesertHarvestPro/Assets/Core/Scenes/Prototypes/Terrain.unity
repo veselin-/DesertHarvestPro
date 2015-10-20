@@ -505,45 +505,17 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: -.110415146
       objectReference: {fileID: 0}
-    - target: {fileID: 11435788, guid: 04f401636beba455f8132908d63f93c6, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11414358, guid: 04f401636beba455f8132908d63f93c6, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11407134, guid: 04f401636beba455f8132908d63f93c6, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 13706862, guid: 04f401636beba455f8132908d63f93c6, type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ba0475b515ad08040898118f123322c1, type: 2}
-    - target: {fileID: 11499938, guid: 04f401636beba455f8132908d63f93c6, type: 2}
-      propertyPath: m_Enabled
+    - target: {fileID: 8284734, guid: 04f401636beba455f8132908d63f93c6, type: 2}
+      propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 483954, guid: 04f401636beba455f8132908d63f93c6, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -.230000004
+    - target: {fileID: 11489906, guid: 04f401636beba455f8132908d63f93c6, type: 2}
+      propertyPath: SubtractWater
+      value: 2.5
       objectReference: {fileID: 0}
-    - target: {fileID: 464534, guid: 04f401636beba455f8132908d63f93c6, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -3.52999997
-      objectReference: {fileID: 0}
-    - target: {fileID: 464534, guid: 04f401636beba455f8132908d63f93c6, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: .74000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 11499938, guid: 04f401636beba455f8132908d63f93c6, type: 2}
-      propertyPath: rotationRange.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 11499938, guid: 04f401636beba455f8132908d63f93c6, type: 2}
-      propertyPath: rotationRange.y
-      value: 50
+    - target: {fileID: 11489906, guid: 04f401636beba455f8132908d63f93c6, type: 2}
+      propertyPath: repeatInterval
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 04f401636beba455f8132908d63f93c6, type: 2}
