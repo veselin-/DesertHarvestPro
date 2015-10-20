@@ -31,7 +31,7 @@ v2f vert (appdata_base v){
    v2f o;
    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
    o.scrPos=ComputeScreenPos(o.pos);
-   //o.scrPos.y = 1 - o.scrPos.y;
+  // o.scrPos.y = 1 - o.scrPos.y;
    return o;
 }
 
@@ -40,15 +40,15 @@ sampler2D _MainTex; //Reference in Pass is necessary to let us use this variable
 //Our Fragment Shader
 half4 frag (v2f i) : COLOR{
 
+   // i.scrPos.y = 1 - i.scrPos.y;
    //extract the value of depth for each screen position from _CameraDepthExture
    float depthValue = Linear01Depth (tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(i.scrPos)).r);
-   
+
    fixed4 orgColor = tex2Dproj(_MainTex, i.scrPos); //Get the orginal rendered color
    float4 newColor; //the color after the ring has passed
    half4 lightRing; //the ring of light that will pass through the dpeth
 
    float t =  ((_Time.y - _StartingTime)/_RingPassTimeLength );
-   float t2 = 1 - ((_Time.y - _StartingTime)/(_RingPassTimeLength) );
    float far = 1;
   // float close = 0.4;
    
