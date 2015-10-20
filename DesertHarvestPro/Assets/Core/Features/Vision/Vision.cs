@@ -94,7 +94,12 @@ public class Vision : MonoBehaviour {
 		}
 
 	}
-	
+
+	void OnDisable()
+	{
+		Camera.main.GetComponent<DepthRingPass>().enabled = false;
+	}
+
 	void ActivateVision()
 	{
 		isVisionActive = true;
