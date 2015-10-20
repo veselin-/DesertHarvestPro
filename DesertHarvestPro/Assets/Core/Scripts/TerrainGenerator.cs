@@ -60,6 +60,7 @@ public class TerrainGenerator : MonoBehaviour
 
 	//Private
 	PerlinNoise m_groundNoise, m_mountainNoise, m_treeNoise, m_detailNoise;
+    List<Vector2> takenPositions;
 	Terrain[,] m_terrain;
 	SplatPrototype[] m_splatPrototypes;
 	TreePrototype[] m_treeProtoTypes;
@@ -72,7 +73,7 @@ public class TerrainGenerator : MonoBehaviour
 		m_mountainNoise = new PerlinNoise(m_mountainSeed);
 		m_treeNoise = new PerlinNoise(m_treeSeed);
 		m_detailNoise = new PerlinNoise(m_detailSeed);
-		
+        takenPositions = new List<Vector2>();
 		if(!Mathf.IsPowerOfTwo(m_heightMapSize-1))
 		{
 			Debug.Log("TerrianGenerator::Start - height map size must be pow2+1 number");
@@ -134,8 +135,9 @@ public class TerrainGenerator : MonoBehaviour
 				
 				//FillTreeInstances(m_terrain[x,z], x, z);
                
-                FillCliffs(m_terrain[x, z], x, z);
                 FillCliffs2(m_terrain[x, z], x, z);
+                
+                FillCliffs(m_terrain[x, z], x, z);
                 FillSpice(m_terrain[x, z], x, z);
                 FillWater(m_terrain[x, z], x, z);
                 FillSoldierInstances(m_terrain[x, z], x, z);
@@ -432,37 +434,45 @@ public class TerrainGenerator : MonoBehaviour
         {
             for (int z = 0; z < m_terrainSize; z += cliffSpacing)
             {
-                float unit = 1.0f / (m_terrainSize - 1);
+                //for (int f = 0; f < takenPositions.Count;f++ )
+                //{
+                //    if (takenPositions[f].x != x && takenPositions[f].y != z)
+                //    {
+                       // Debug.Log(takenPositions[f].x + " " + takenPositions[f].y);
+                        takenPositions.Add(new Vector2(x, z));
+                        float unit = 1.0f / (m_terrainSize - 1);
 
-                float offsetX = Random.value * unit * cliffSpacing;
-                float offsetZ = Random.value * unit * cliffSpacing;
+                        float offsetX = Random.value * unit * cliffSpacing;
+                        float offsetZ = Random.value * unit * cliffSpacing;
 
-                float normX = x * unit + offsetX;
-                float normZ = z * unit + offsetZ;
+                        float normX = x * unit + offsetX;
+                        float normZ = z * unit + offsetZ;
 
-                // Get the steepness value at the normalized coordinate.
-                float angle = terrain.terrainData.GetSteepness(normX, normZ);
+                        // Get the steepness value at the normalized coordinate.
+                        float angle = terrain.terrainData.GetSteepness(normX, normZ);
 
-                // Steepness is given as an angle, 0..90 degrees. Divide
-                // by 90 to get an alpha blending value in the range 0..1.
-                float frac = angle / 90.0f;
+                        // Steepness is given as an angle, 0..90 degrees. Divide
+                        // by 90 to get an alpha blending value in the range 0..1.
+                        float frac = angle / 90.0f;
 
-                if (frac < 0.5f) //make sure tree are not on steep slopes
-                {
-                    float worldPosX = x + tileX * (m_terrainSize - 1);
-                    float worldPosZ = z + tileZ * (m_terrainSize - 1);
+                        if (frac < 0.5f) //make sure tree are not on steep slopes
+                        {
+                            float worldPosX = x + tileX * (m_terrainSize - 1);
+                            float worldPosZ = z + tileZ * (m_terrainSize - 1);
 
-                    float noise = m_treeNoise.FractalNoise2D(worldPosX, worldPosZ, 3, m_treeFrq, 1.0f);
-                    float ht = terrain.terrainData.GetInterpolatedHeight(normX, normZ);
+                            float noise = m_treeNoise.FractalNoise2D(worldPosX, worldPosZ, 3, m_treeFrq, 1.0f);
+                            float ht = terrain.terrainData.GetInterpolatedHeight(normX, normZ);
 
-                    if (noise > 0.0f && ht < m_terrainHeight * 0.4f)
-                    {
+                            if (noise > 0.0f && ht < m_terrainHeight * 0.4f)
+                            {
 
-                        GameObject obj = Instantiate(cliff[Random.Range(0, 4)],
-                             new Vector3(worldPosX - 1024 + offsetX / unit, ht, worldPosZ - 1024 + offsetZ / unit),
-                             Quaternion.Euler(new Vector3(-90f,0f,0f))) as GameObject;
+                                GameObject obj = Instantiate(cliff[Random.Range(0, 4)],
+                                     new Vector3(worldPosX - 1024 + offsetX / unit, ht, worldPosZ - 1024 + offsetZ / unit),
+                                     Quaternion.Euler(new Vector3(-90f, 0f, 0f))) as GameObject;
 
-                    }
+                            }
+                    //    }
+                    //}
                 }
             }
         }
@@ -568,6 +578,8 @@ public class TerrainGenerator : MonoBehaviour
             float fakeZ = z;
             for (int x = 0; x < m_terrainSize; x += 1)
             {
+               
+                       // takenPositions.Add(new Vector2(x, z));
                 fakeZ +=0.3f;
                 float unit = 1.0f / (m_terrainSize - 1);
 
@@ -594,8 +606,8 @@ public class TerrainGenerator : MonoBehaviour
                              new Vector3(worldPosX - 1024 + offsetX / unit, ht, worldPosZ - 1024 + offsetZ / q),
                              Quaternion.Euler(new Vector3(-90f, Random.Range(0,180), 0f))) as GameObject;
                         }
-                    }
-                
+                    
+                }
             }
         }
 
