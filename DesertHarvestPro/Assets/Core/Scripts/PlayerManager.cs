@@ -87,7 +87,7 @@ public class PlayerManager : MonoBehaviour {
 		//Time.timeScale = 0;
 		GetComponent<ThirdPersonUserControl>().enabled = false;
 		UI.DeathScreen.SetActive(true);
-		Camera.main.GetComponent<DeathDepthRing>().enabled = true;
+		Camera.main.GetComponent<DeathDepthRing>().enableBlast = true;
 	}
 
 	public void WinGame()
