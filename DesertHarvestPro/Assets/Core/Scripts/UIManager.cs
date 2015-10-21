@@ -75,11 +75,13 @@ public class UIManager : MonoBehaviour {
 		pause = !pause;
 		if(pause)
 		{
+            Cursor.visible = true;
 			Time.timeScale = 0;
 			PauseScreen.SetActive(true);
 		}
 		else
 		{
+            Cursor.visible = false;
 			PauseScreen.SetActive(false);
 			Time.timeScale = 1;
 		}

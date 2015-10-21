@@ -99,7 +99,7 @@ public class PlayerManager : MonoBehaviour {
 
 	public void Die()
 	{
-
+        Cursor.visible = true;
 		CancelInvoke();
         GetComponent<Animator>().SetTrigger("Die");
 		//Camera.main.GetComponent<DepthRingPass>().enabled = false;
@@ -119,6 +119,7 @@ public class PlayerManager : MonoBehaviour {
 
 	public void WinGame()
 	{
+        Cursor.visible = true;
 		//Camera.main.GetComponent<DepthRingPass>().enabled = false;
 		GameObject.FindObjectOfType<Vision>().enabled = false;
 		GetComponent<ThirdPersonUserControl>().enabled = false;
