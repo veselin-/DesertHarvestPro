@@ -347,11 +347,11 @@ public class TerrainGenerator : MonoBehaviour
         {
             for (int z = 0; z < m_terrainSize; z += soldierSpacing)
             {
-                Debug.Log(takenPositions.Count+": "+x+" "+z);
+                //Debug.Log(takenPositions.Count+": "+x+" "+z);
                 if (!takenPositions.ContainsKey(x+" "+z))
                     {
-                        Debug.Log("Inside " +takenPositions.Count + ": " + x + " " + z);
-                        Debug.Log(new Vector2(x, z));
+                        //Debug.Log("Inside " +takenPositions.Count + ": " + x + " " + z);
+                        //Debug.Log(new Vector2(x, z));
                         float unit = 1.0f / (m_terrainSize - 1);
 
                         float offsetX = Random.value * unit * soldierSpacing;

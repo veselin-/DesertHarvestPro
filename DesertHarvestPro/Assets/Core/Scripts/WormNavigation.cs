@@ -88,7 +88,7 @@ public class WormNavigation : MonoBehaviour {
 
                     Waypoint.transform.position = targetPosition;
 
-                    Debug.Log("New target.");
+                    //Debug.Log("New target.");
                 }
 
                 nav.SetDestination(Waypoint.transform.position);
@@ -101,7 +101,7 @@ public class WormNavigation : MonoBehaviour {
 
             case "Hunt":
 
-                Debug.Log("isHunting");
+                //Debug.Log("isHunting");
                 showSign = true;
 
                 nav.SetDestination(playerPosition);
