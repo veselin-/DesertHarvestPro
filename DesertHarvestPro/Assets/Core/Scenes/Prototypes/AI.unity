@@ -160,7 +160,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 406014, guid: 0e26ecec576e92c45b68bc592790bc15, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -6.48100328
+      value: -11.6859999
       objectReference: {fileID: 0}
     - target: {fileID: 406014, guid: 0e26ecec576e92c45b68bc592790bc15, type: 2}
       propertyPath: m_LocalPosition.z
@@ -446,6 +446,10 @@ Prefab:
       propertyPath: Waypoints.Array.data[3]
       value: 
       objectReference: {fileID: 877450102}
+    - target: {fileID: 13557666, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
+      propertyPath: m_Radius
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
   m_IsPrefabParent: 0
@@ -681,6 +685,47 @@ Transform:
   - {fileID: 877450101}
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!1 &1619979709 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 173404, guid: dfeee9131b4be7348b86fcd86c5184cc, type: 2}
+  m_PrefabInternal: {fileID: 598036447}
+--- !u!120 &1619979710
+LineRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1619979709}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    startWidth: 1
+    endWidth: 1
+    m_StartColor:
+      serializedVersion: 2
+      rgba: 4294967295
+    m_EndColor:
+      serializedVersion: 2
+      rgba: 4294967295
+  m_UseWorldSpace: 1
 --- !u!1 &2075480411
 GameObject:
   m_ObjectHideFlags: 0
