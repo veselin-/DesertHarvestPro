@@ -22,6 +22,8 @@ public class EnemyPool : MonoBehaviour {
 		{
 			enemyList.Add(e);
 		}
+
+		CheckDistance();
 		
 		InvokeRepeating("CheckDistance", Time.timeSinceLevelLoad, 5f);
 	}
