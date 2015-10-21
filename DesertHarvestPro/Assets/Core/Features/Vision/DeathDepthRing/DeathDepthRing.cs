@@ -40,7 +40,7 @@ public class DeathDepthRing : MonoBehaviour {
 		{
 			float depth = tempMat.GetFloat("_CloseDepth") - Time.deltaTime;
 			tempMat.SetFloat("_CloseDepth", depth);
-            Debug.Log(depth);
+            //Debug.Log(depth);
 			yield return null;
 		}
 		tempMat.SetFloat("_CloseDepth", 0);
