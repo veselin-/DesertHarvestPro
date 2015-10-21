@@ -60,7 +60,7 @@ public class TerrainGenerator : MonoBehaviour
 
 	//Private
 	PerlinNoise m_groundNoise, m_mountainNoise, m_treeNoise, m_detailNoise;
-    List<Vector2> takenPositions;
+    Dictionary<string,Vector2> takenPositions;
 	Terrain[,] m_terrain;
 	SplatPrototype[] m_splatPrototypes;
 	TreePrototype[] m_treeProtoTypes;
@@ -73,7 +73,7 @@ public class TerrainGenerator : MonoBehaviour
 		m_mountainNoise = new PerlinNoise(m_mountainSeed);
 		m_treeNoise = new PerlinNoise(m_treeSeed);
 		m_detailNoise = new PerlinNoise(m_detailSeed);
-        takenPositions = new List<Vector2>();
+        takenPositions = new Dictionary<string,Vector2>();
 		if(!Mathf.IsPowerOfTwo(m_heightMapSize-1))
 		{
 			Debug.Log("TerrianGenerator::Start - height map size must be pow2+1 number");
@@ -343,36 +343,46 @@ public class TerrainGenerator : MonoBehaviour
         {
             for (int z = 0; z < m_terrainSize; z += soldierSpacing)
             {
-                float unit = 1.0f / (m_terrainSize - 1);
-
-                float offsetX = Random.value * unit * soldierSpacing;
-                float offsetZ = Random.value * unit * soldierSpacing;
-               
-                float normX = x * unit + offsetX;
-                float normZ = z * unit + offsetZ;
-
-                // Get the steepness value at the normalized coordinate.
-                float angle = terrain.terrainData.GetSteepness(normX, normZ);
-
-                // Steepness is given as an angle, 0..90 degrees. Divide
-                // by 90 to get an alpha blending value in the range 0..1.
-                float frac = angle / 90.0f;
-
-                if (frac < 0.5f) //make sure tree are not on steep slopes
-                {
-                    float worldPosX = x + tileX * (m_terrainSize - 1);
-                    float worldPosZ = z + tileZ * (m_terrainSize - 1) ;
-
-                    float noise = m_treeNoise.FractalNoise2D(worldPosX , worldPosZ, 3, m_treeFrq, 1.0f);
-                    float ht = terrain.terrainData.GetInterpolatedHeight(normX, normZ);
-					
-                    if (noise > 0.0f && ht < m_terrainHeight * 0.4f)
+                Debug.Log(takenPositions.Count+": "+x+" "+z);
+                if (!takenPositions.ContainsKey(x+" "+z))
                     {
-                       
-                        GameObject obj = Instantiate(solder,
-                             new Vector3(worldPosX - 1024 + offsetX / unit, ht, worldPosZ - 1024 + offsetZ / unit),
-                             Quaternion.identity) as GameObject;
-                     
+                        Debug.Log("Inside " +takenPositions.Count + ": " + x + " " + z);
+                        Debug.Log(new Vector2(x, z));
+                        float unit = 1.0f / (m_terrainSize - 1);
+
+                        float offsetX = Random.value * unit * soldierSpacing;
+                        float offsetZ = Random.value * unit * soldierSpacing;
+
+                        float normX = x * unit + offsetX;
+                        float normZ = z * unit + offsetZ;
+
+                        // Get the steepness value at the normalized coordinate.
+                        float angle = terrain.terrainData.GetSteepness(normX, normZ);
+
+                        // Steepness is given as an angle, 0..90 degrees. Divide
+                        // by 90 to get an alpha blending value in the range 0..1.
+                        float frac = angle / 90.0f;
+
+                        if (frac < 0.5f) //make sure tree are not on steep slopes
+                        {
+                            float worldPosX = x + tileX * (m_terrainSize - 1);
+                            float worldPosZ = z + tileZ * (m_terrainSize - 1);
+
+                            float noise = m_treeNoise.FractalNoise2D(worldPosX, worldPosZ, 3, m_treeFrq, 1.0f);
+                            float ht = terrain.terrainData.GetInterpolatedHeight(normX, normZ);
+
+                            if (noise > 0.0f && ht < m_terrainHeight * 0.4f)
+                            {
+                                Vector3 instantiatePosition = new Vector3(worldPosX - 1024 + offsetX / unit,ht,worldPosZ - 1024 + offsetZ / unit);
+                                if(CheckBounds(instantiatePosition,solder.transform.localScale,cliffs))
+                                {
+                                GameObject obj = Instantiate(solder,
+                                     instantiatePosition,
+                                     Quaternion.identity) as GameObject;
+                                }
+
+                            }
+                        
                     }
                 }
             }
@@ -439,7 +449,11 @@ public class TerrainGenerator : MonoBehaviour
                 //    if (takenPositions[f].x != x && takenPositions[f].y != z)
                 //    {
                        // Debug.Log(takenPositions[f].x + " " + takenPositions[f].y);
-                        takenPositions.Add(new Vector2(x, z));
+                
+                if (!takenPositions.ContainsKey(x + " " + z))
+                {
+                    takenPositions.Add(x + " " + z, new Vector2(x, z));
+                }
                         float unit = 1.0f / (m_terrainSize - 1);
 
                         float offsetX = Random.value * unit * cliffSpacing;
@@ -578,8 +592,8 @@ public class TerrainGenerator : MonoBehaviour
             float fakeZ = z;
             for (int x = 0; x < m_terrainSize; x += 1)
             {
-               
-                       // takenPositions.Add(new Vector2(x, z));
+
+                
                 fakeZ +=0.3f;
                 float unit = 1.0f / (m_terrainSize - 1);
 
@@ -605,6 +619,7 @@ public class TerrainGenerator : MonoBehaviour
                         GameObject obj = Instantiate(cliff[Random.Range(3, 6)],
                              new Vector3(worldPosX - 1024 + offsetX / unit, ht, worldPosZ - 1024 + offsetZ / q),
                              Quaternion.Euler(new Vector3(-90f, Random.Range(0,180), 0f))) as GameObject;
+                        takenPositions.Add(x + " " + z, new Vector2(x, z));
                         }
                     
                 }
@@ -612,6 +627,7 @@ public class TerrainGenerator : MonoBehaviour
         }
 
     }
+
 	void FillDetailMap(Terrain terrain, int tileX, int tileZ)
 	{
 		//each layer is drawn separately so if you have a lot of layers your draw calls will increase 
@@ -679,8 +695,24 @@ public class TerrainGenerator : MonoBehaviour
 		terrain.terrainData.SetDetailLayer(0,0,2,detailMap2);
 		
 	}
-	
 
+    public bool CheckBounds(Vector3 position, Vector3 boundsSize, int layerMask)
+    {
+        Bounds spldierBounds = new Bounds(position, boundsSize);
+
+        float sqrHalfBoxSize = spldierBounds.extents.sqrMagnitude;
+        float overlapingSphereRadius = Mathf.Sqrt(sqrHalfBoxSize + sqrHalfBoxSize);
+
+        /* Hoping I have the previous calculation right, move on to finding the nearby colliders */
+        Collider[] hitColliders = Physics.OverlapSphere(position, overlapingSphereRadius, layerMask);
+        foreach (Collider otherCollider in hitColliders)
+        {
+            //now we ask each of thoose gentle colliders if they sens something is within their bounds
+            if (otherCollider.bounds.Intersects(spldierBounds))
+                return (false);
+        }
+        return (true);
+    }
 }
 
 
