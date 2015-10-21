@@ -135,6 +135,10 @@ Material:
         first:
           name: _RingPassTimeLength
         second: 20
+      data:
+        first:
+          name: _CloseDepth
+        second: .300000012
     m_Colors:
       data:
         first:

@@ -13,6 +13,8 @@ public class PlayerManager : MonoBehaviour {
 	public float SubtractWater = 2.5f;
 	public float repeatInterval = 10f;
 
+    public bool playerDead = false;
+
 	private UIManager UI;
 	// Use this for initialization
 	void Start () {
@@ -51,54 +53,68 @@ public class PlayerManager : MonoBehaviour {
 
 	public void AddSpice(float amount)
 	{
-		if(SpiceAmount < SpiceLimit)
-		{
-			SpiceAmount += amount;
-			if(SpiceAmount >= SpiceLimit)
-			{
-				SpiceAmount = SpiceLimit;
-				WinGame();
-			}
-		}
-		UISpice();
+        if (!playerDead)
+        {
+            if (SpiceAmount < SpiceLimit)
+            {
+                SpiceAmount += amount;
+                if (SpiceAmount >= SpiceLimit)
+                {
+                    SpiceAmount = SpiceLimit;
+                    WinGame();
+                }
+            }
+            UISpice();
+        }
 	}
 	
 	public void RemoveSpice(float amount)
 	{
-		SpiceAmount -= amount;
-		if(SpiceAmount <= 0)
-		{
-			SpiceAmount = 0;
-		}
-		UISpice();
+        if(!playerDead)
+        {
+		    SpiceAmount -= amount;
+		    if(SpiceAmount <= 0)
+		    {
+			    SpiceAmount = 0;
+		    }
+		    UISpice();
+        }
 	}
 
 	public void AddWater(float amount)
 	{
-		if(WaterAmount < WaterLimit)
-		{
-			WaterAmount += amount;
-			if(WaterAmount > WaterLimit)
-			{
-				WaterAmount = WaterLimit;
-			}
-		}
-		UIWater();
+        if (!playerDead)
+        {
+            if (WaterAmount < WaterLimit)
+            {
+                WaterAmount += amount;
+                if (WaterAmount > WaterLimit)
+                {
+                    WaterAmount = WaterLimit;
+                }
+            }
+            UIWater();
+        }
 	}
 
 	public void RemoveWater(float amount)
 	{
-		WaterAmount -= amount;
-		if(WaterAmount <= 0)
-		{
-			WaterAmount = 0;
-			Die();
-		}
-		UIWater();
+        if (!playerDead)
+        {
+            WaterAmount -= amount;
+            if (WaterAmount <= 0)
+            {
+                WaterAmount = 0;
+                Die();
+            }
+            UIWater();
+        }
 	}
 
 	public void Die()
 	{
+        transform.tag = "Untagged";
+        playerDead = true;
         Cursor.visible = true;
 		CancelInvoke();
         GetComponent<Animator>().SetTrigger("Die");

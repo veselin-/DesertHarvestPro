@@ -13,9 +13,11 @@ public class UIManager : MonoBehaviour {
 	private bool pause = false;
 	private float animSpeed = 0.2f;
 	private AudioManager aManager;
+    private Vision vision;
 	// Use this for initialization
 	void Start () {
 		aManager = GameObject.FindObjectOfType<AudioManager>();
+        vision = GameObject.FindObjectOfType<Vision>().GetComponent<Vision>();
 	}
 
 	void Update()
@@ -75,12 +77,14 @@ public class UIManager : MonoBehaviour {
 		pause = !pause;
 		if(pause)
 		{
+            vision.enabled = false;
             Cursor.visible = true;
 			Time.timeScale = 0;
 			PauseScreen.SetActive(true);
 		}
 		else
 		{
+            vision.enabled = true;
             Cursor.visible = false;
 			PauseScreen.SetActive(false);
 			Time.timeScale = 1;

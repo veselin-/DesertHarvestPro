@@ -35,7 +35,8 @@ public class DeathDepthRing : MonoBehaviour {
 
 	IEnumerator LerpSineToFront()
 	{
-		Material tempMat = GetComponent<SineHeatPostProcess>().mat;
+        GetComponents<SineHeatPostProcess>()[1].enabled = true;
+		Material tempMat = GetComponents<SineHeatPostProcess>()[1].mat;
 		while(tempMat.GetFloat("_CloseDepth") > 0.1)
 		{
 			float depth = tempMat.GetFloat("_CloseDepth") - Time.deltaTime;

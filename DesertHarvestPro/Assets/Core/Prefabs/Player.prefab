@@ -392,12 +392,10 @@ GameObject:
   - 124: {fileID: 12411646}
   - 81: {fileID: 8129530}
   - 114: {fileID: 11437980}
-  - 114: {fileID: 11412240}
-  - 114: {fileID: 11454934}
-  - 114: {fileID: 11496218}
   - 114: {fileID: 11407134}
   - 114: {fileID: 11414358}
   - 114: {fileID: 11435788}
+  - 114: {fileID: 11441398}
   m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -595,7 +593,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &133924
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -1255,9 +1253,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 424078}
   - 20: {fileID: 2097328}
-  - 114: {fileID: 11476422}
-  - 114: {fileID: 11471432}
-  - 114: {fileID: 11419606}
   m_Layer: 9
   m_Name: Glow Camera
   m_TagString: Untagged
@@ -1526,12 +1521,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 142878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.8233786, y: 43.7454147, z: 161.712875}
+  m_LocalPosition: {x: -79.0999985, y: 27.1700001, z: 214.800003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 464534}
   - {fileID: 483954}
-  - {fileID: 442196}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &403726
@@ -2127,7 +2121,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 133924}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: .229995728}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 422962}
@@ -2136,8 +2130,8 @@ Transform:
   - {fileID: 462404}
   - {fileID: 439782}
   - {fileID: 431822}
-  m_Father: {fileID: 401486}
-  m_RootOrder: 2
+  m_Father: {fileID: 464534}
+  m_RootOrder: 1
 --- !u!4 &444070
 Transform:
   m_ObjectHideFlags: 1
@@ -2237,7 +2231,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 148630}
-  m_LocalRotation: {x: .532675147, y: .0703404471, z: .836132646, w: -.110415131}
+  m_LocalRotation: {x: .532675207, y: .0703404546, z: .836132765, w: -.110415146}
   m_LocalPosition: {x: 2.22714643e-05, y: -6.1504652e-05, z: .0260270257}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2384,6 +2378,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 467458}
+  - {fileID: 442196}
   m_Father: {fileID: 401486}
   m_RootOrder: 0
 --- !u!4 &466156
@@ -3348,44 +3343,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mat: {fileID: 2100000, guid: 42bb061e879414e3e92a96e1b3f6ae1c, type: 2}
---- !u!114 &11412240
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 121996}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fceaeb339b971b429c4cc600acabd13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tweakMode: 0
-  screenBlendMode: 1
-  hdr: 0
-  sepBlurSpread: 2.5
-  quality: 1
-  bloomIntensity: 1.5
-  bloomThreshold: .5
-  bloomThresholdColor: {r: 1, g: 1, b: 1, a: 1}
-  bloomBlurIterations: 2
-  hollywoodFlareBlurIterations: 2
-  flareRotation: 0
-  lensflareMode: 1
-  hollyStretchWidth: 2.5
-  lensflareIntensity: 0
-  lensflareThreshold: .300000012
-  lensFlareSaturation: .75
-  flareColorA: {r: .400000006, g: .400000006, b: .800000012, a: .75}
-  flareColorB: {r: .400000006, g: .800000012, b: .800000012, a: .75}
-  flareColorC: {r: .800000012, g: .400000006, b: .800000012, a: .75}
-  flareColorD: {r: .800000012, g: .400000006, b: 0, a: .75}
-  lensFlareVignetteMask: {fileID: 2800000, guid: 95ef4804fe0be4c999ddaa383536cde8,
-    type: 3}
-  lensFlareShader: {fileID: 4800000, guid: 459fe69d2f6d74ddb92f04dbf45a866b, type: 3}
-  screenBlendShader: {fileID: 4800000, guid: 7856cbff0a0ca45c787d5431eb805bb0, type: 3}
-  blurAndFlaresShader: {fileID: 4800000, guid: be6e39cf196f146d5be72fbefb18ed75, type: 3}
-  brightPassFilterShader: {fileID: 4800000, guid: 0aeaa4cb29f5d4e9c8455f04c8575c8c,
-    type: 3}
 --- !u!114 &11414358
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3398,30 +3355,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mat: {fileID: 2100000, guid: 71364b31ab4b84dab988ddc92f6a4492, type: 2}
---- !u!114 &11419606
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 182442}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e50e925fb93c78246bf995d9dc3a2330, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 3
-  adaptiveTextureSize: 256
-  remapCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  exposureAdjustment: 1.5
-  middleGrey: .400000006
-  white: 2
-  adaptionSpeed: 1.5
-  tonemapper: {fileID: 4800000, guid: 003377fc2620a44939dadde6fe3f8190, type: 3}
-  validRenderTextureFormat: 0
 --- !u!114 &11422790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3500,6 +3433,18 @@ MonoBehaviour:
   lineColor2: {r: 0, g: 1, b: 0, a: 1}
   lineColor3: {r: 0, g: 0, b: 1, a: 1}
   flipY: 0
+--- !u!114 &11441398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121996}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0526766fefa7403b8eca36d25f85ca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mat: {fileID: 2100000, guid: 71364b31ab4b84dab988ddc92f6a4492, type: 2}
 --- !u!114 &11450256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3514,38 +3459,6 @@ MonoBehaviour:
   minOutline: .00999999978
   maxOutline: .0299999993
   cycleSpeed: .00999999978
---- !u!114 &11454934
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 121996}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7db9ec1392f34265817a55853e6ab07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filterType: 0
-  preview: 0
-  previewScale: {x: 1, y: 1, z: 1}
-  movementScale: 0
-  rotationScale: 1
-  maxVelocity: 8
-  maxNumSamples: 17
-  minVelocity: .100000001
-  velocityScale: .375
-  softZDistance: .00499999989
-  velocityDownsample: 1
-  excludeLayers:
-    serializedVersion: 2
-    m_Bits: 4294967294
-  shader: {fileID: 4800000, guid: 85a88efa8c871af4a9d17c64791b6f4f, type: 3}
-  dx11MotionBlurShader: {fileID: 4800000, guid: f1b13d7a80660504a858ea24cfa418c6,
-    type: 3}
-  replacementClear: {fileID: 4800000, guid: 7699c5fbfa27745a1abe111ab7bf9785, type: 3}
-  noiseTexture: {fileID: 2800000, guid: 31f5a8611c4ed1245b18456206e798dc, type: 3}
-  showVelocity: 0
-  showVelocityScale: 1
 --- !u!114 &11455064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3557,44 +3470,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521b611700410be45810047f0a74e899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11471432
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 182442}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fceaeb339b971b429c4cc600acabd13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tweakMode: 0
-  screenBlendMode: 1
-  hdr: 0
-  sepBlurSpread: 2.5
-  quality: 1
-  bloomIntensity: 1.5
-  bloomThreshold: .5
-  bloomThresholdColor: {r: 1, g: 1, b: 1, a: 1}
-  bloomBlurIterations: 2
-  hollywoodFlareBlurIterations: 2
-  flareRotation: 0
-  lensflareMode: 1
-  hollyStretchWidth: 2.5
-  lensflareIntensity: 0
-  lensflareThreshold: .300000012
-  lensFlareSaturation: .75
-  flareColorA: {r: .400000006, g: .400000006, b: .800000012, a: .75}
-  flareColorB: {r: .400000006, g: .800000012, b: .800000012, a: .75}
-  flareColorC: {r: .800000012, g: .400000006, b: .800000012, a: .75}
-  flareColorD: {r: .800000012, g: .400000006, b: 0, a: .75}
-  lensFlareVignetteMask: {fileID: 2800000, guid: 95ef4804fe0be4c999ddaa383536cde8,
-    type: 3}
-  lensFlareShader: {fileID: 4800000, guid: 459fe69d2f6d74ddb92f04dbf45a866b, type: 3}
-  screenBlendShader: {fileID: 4800000, guid: 7856cbff0a0ca45c787d5431eb805bb0, type: 3}
-  blurAndFlaresShader: {fileID: 4800000, guid: be6e39cf196f146d5be72fbefb18ed75, type: 3}
-  brightPassFilterShader: {fileID: 4800000, guid: 0aeaa4cb29f5d4e9c8455f04c8575c8c,
-    type: 3}
 --- !u!114 &11472902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3612,29 +3487,6 @@ MonoBehaviour:
   rotationDamping: 0
   heightDamping: 0
   smoothTime: .100000001
---- !u!114 &11476422
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 182442}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a78da3f00f3328541b4526c0b0b5ec5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineRenderers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  outlineRendererColors: 000000000100000002000000
-  eraseRenderers: []
-  lineThickness: 3
-  lineIntensity: .5
-  lineColor1: {r: 1, g: 0, b: 0, a: 1}
-  lineColor2: {r: 0, g: 1, b: 0, a: 1}
-  lineColor3: {r: 0, g: 0, b: 1, a: 1}
-  flipY: 0
 --- !u!114 &11488284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3660,8 +3512,8 @@ MonoBehaviour:
   MainCamMask:
     serializedVersion: 2
     m_Bits: 4294966783
-  consumeSpice: 5
-  consumeSpiceOverTime: 1
+  consumeSpice: 1
+  consumeSpiceOverTime: 3
 --- !u!114 &11489906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3673,20 +3525,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2ab61f9cc2c4a9ca7043fe01f703b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SubtractWater: 2.5
-  repeatInterval: 10
---- !u!114 &11496218
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 121996}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab1fb75e26b754eb9855300315c8f3af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mat: {fileID: 2100000, guid: 39c5855c779f34abd89d24227861e313, type: 2}
+  SubtractWater: 2
+  repeatInterval: 6.5
+  playerDead: 0
 --- !u!114 &11499938
 MonoBehaviour:
   m_ObjectHideFlags: 1

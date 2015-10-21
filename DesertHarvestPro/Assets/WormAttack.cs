@@ -13,11 +13,14 @@ public class WormAttack : MonoBehaviour {
 	
 	}
 
-    void OnCollisionEnter(Collision col)
+    void OnTriggerEnter(Collider col)
     {
-        if(col.transform.tag == "Player")
+        if(col.tag == "Player")
         {
-            col.gameObject.GetComponent<PlayerManager>().Die();
+            if(!col.gameObject.GetComponent<PlayerManager>().playerDead)
+            { 
+                col.gameObject.GetComponent<PlayerManager>().Die();
+            }
         }
     }
 }

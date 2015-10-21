@@ -20,7 +20,9 @@ public class AIBehaviour : MonoBehaviour {
     private bool isLooking;
 
     public GameObject gun;
-    
+
+    private PlayerManager pm;
+
     // Use this for initialization
     void Start () {
 
@@ -38,7 +40,7 @@ public class AIBehaviour : MonoBehaviour {
 
         nav.target = currentWaypoint;
 
-
+        pm = GameObject.FindObjectOfType<PlayerManager>().GetComponent<PlayerManager>(); 
 
     }
 	
@@ -168,6 +170,8 @@ public class AIBehaviour : MonoBehaviour {
     {
 
        // Debug.Log("Bang!!");
+        if(!pm.playerDead)
+        { 
         RaycastHit hit;
         GetComponent<AudioSource>().Play();
        Vector3 direction = vision.lastKnownPlayerPosition - gun.transform.position;
@@ -181,6 +185,7 @@ public class AIBehaviour : MonoBehaviour {
             {
                 hit.collider.GetComponent<PlayerManager>().Die();
             }
+        }
         }
     }
 }
