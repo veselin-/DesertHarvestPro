@@ -130,7 +130,8 @@ public class Vision : MonoBehaviour {
 		}
 		else
 		{
-			Debug.Log("Not Enough spice");
+			//Debug.Log("Not Enough spice");
+            aManager.clickPlay();
 		}
 		
 	}

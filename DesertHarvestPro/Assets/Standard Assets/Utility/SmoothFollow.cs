@@ -20,9 +20,29 @@ namespace UnityStandardAssets.Utility
 		[SerializeField]
 		private float heightDamping;
 
+        public float smoothTime = 0.3f;
+        private Vector3 velocity = Vector3.zero;
+
 		// Use this for initialization
 		void Start() { }
 
+
+        void FixedUpdate()
+        {
+            // Early out if we don't have a target
+            if (!target)
+                return;
+
+            // Define a target position above and behind the target transform
+            Vector3 targetPosition = target.TransformPoint(new Vector3(0, 0, 0));
+         
+             // Smoothly move the camera towards that target position
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+        }
+
+
+ 
+        /*
 		// Update is called once per frame
 		void LateUpdate()
 		{
@@ -49,7 +69,7 @@ namespace UnityStandardAssets.Utility
 			// Set the position of the camera on the x-z plane to:
 			// distance meters behind the target
 			transform.position = target.position;
-			transform.position -= currentRotation * Vector3.forward * distance;
+			transform.position -=  Vector3.forward * distance;
 
 			// Set the height of the camera
 			transform.position = new Vector3(transform.position.x ,currentHeight , transform.position.z);
@@ -57,5 +77,7 @@ namespace UnityStandardAssets.Utility
 			// Always look at the target
 			transform.LookAt(target);
 		}
+         */
+
 	}
 }

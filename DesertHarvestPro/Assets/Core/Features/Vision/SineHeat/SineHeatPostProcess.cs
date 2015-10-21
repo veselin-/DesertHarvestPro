@@ -10,7 +10,7 @@ public class SineHeatPostProcess : MonoBehaviour {
 
 	void Awake()
 	{
-		mat.SetFloat("_CloseDepth", 0.4f);
+		mat.SetFloat("_CloseDepth", 0.3f);
 	}
 
 	void Start () {

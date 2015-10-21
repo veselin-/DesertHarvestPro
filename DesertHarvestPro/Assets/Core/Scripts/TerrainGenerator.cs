@@ -454,7 +454,7 @@ public class TerrainGenerator : MonoBehaviour
     }
     void FillWormInstances(Terrain terrain, int tileX, int tileZ)
     {
-        Random.seed = 6;
+        Random.seed = 9;
 
 
         for (int x = 0; x < m_terrainSize; x += wormSpacing)
@@ -476,7 +476,7 @@ public class TerrainGenerator : MonoBehaviour
                 // by 90 to get an alpha blending value in the range 0..1.
                 float frac = angle / 90.0f;
 
-                if (frac < 0.5f) //make sure tree are not on steep slopes
+                if (frac < 0.3f) //make sure tree are not on steep slopes
                 {
                     float worldPosX = x + tileX * (m_terrainSize - 1);
                     float worldPosZ = z + tileZ * (m_terrainSize - 1);
