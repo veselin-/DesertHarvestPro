@@ -142,8 +142,9 @@ public class TerrainGenerator : MonoBehaviour
                 FillCliffs(m_terrain[x, z], x, z);
                 FillSpice(m_terrain[x, z], x, z);
                 FillWater(m_terrain[x, z], x, z);
-                FillSoldierInstances(m_terrain[x, z], x, z);
+              
                 FillWayPoints(m_terrain[x, z], x, z);
+                FillSoldierInstances(m_terrain[x, z], x, z);
                 FillWormInstances(m_terrain[x, z], x, z);
 				//FillDetailMap(m_terrain[x,z], x, z);
 			}
@@ -381,9 +382,12 @@ public class TerrainGenerator : MonoBehaviour
                                 cliffs |= (1 << LayerMask.NameToLayer("Cliff"));
                                 if (CheckBounds(instantiatePosition, solder.transform.localScale, cliffs) && instantiatePosition.z > -1024 && instantiatePosition.z < 1024 && instantiatePosition.x > -1024 && instantiatePosition.x < 1024)
                                 {
-                                    for(int i=0;i<solder.GetComponent<AIBehaviour>().Waypoints.Length;i++){
-                                        solder.GetComponent<AIBehaviour>().Waypoints[i] = waypoints[Random.Range(0, waypoints.Count - 1)];
+                                    Vector3[] wp = new Vector3[4];
+                                    for(int i=0;i<wp.Length;i++){
+                                       // Debug.Log(waypoints.Count);
+                                        wp[i] = waypoints[Random.Range(0, waypoints.Count)];
                                     }
+                                    solder.GetComponent<AIBehaviour>().Waypoints = wp;
                                 GameObject obj = Instantiate(solder,
                                      instantiatePosition,
                                      Quaternion.identity) as GameObject;
