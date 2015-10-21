@@ -12,7 +12,7 @@ GameObject:
   - 23: {fileID: 2328028}
   - 64: {fileID: 6428414}
   - 208: {fileID: 20829892}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cave03_a
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
