@@ -19,12 +19,7 @@ public class EnemyPool : MonoBehaviour {
 		enemyList = new List<GameObject>();
 		//currentActiveEnemies = new List<GameObject>();
 
-		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-		foreach(GameObject e in enemies)
-		{
-			enemyList.Add(e);
-		}
+		
 
 		CheckDistance();
 		
@@ -33,6 +28,13 @@ public class EnemyPool : MonoBehaviour {
 
 	public void CheckDistance()
 	{
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject e in enemies)
+        {
+            enemyList.Add(e);
+        }
+
 		foreach(GameObject enemy in enemyList)
 		{
 			float distance = Vector3.Distance(enemy.transform.position,player.transform.position);
