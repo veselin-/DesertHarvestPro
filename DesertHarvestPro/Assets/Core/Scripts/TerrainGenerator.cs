@@ -14,11 +14,13 @@ public class TerrainGenerator : MonoBehaviour
     public GameObject spice;
     public GameObject[] cliff;
     public GameObject[] water;
+    public GameObject wayPoint;
     public int cliffSpacing = 40;
     public int spiceSpacing = 120;
     public int waterSpacing = 80;
     public int soldierSpacing = 150;
     public int wormSpacing = 150;
+    public int wayPointSpacing = 100;
 	public GameObject m_tree0, m_tree1, m_tree2;
 	//Noise settings. A higher frq will create larger scale details. Each seed value will create a unique look
 	public int m_groundSeed = 0;
@@ -57,7 +59,7 @@ public class TerrainGenerator : MonoBehaviour
 	public Color m_wavingGrassTint = Color.white;
 	public Color m_grassHealthyColor = Color.white;
 	public Color m_grassDryColor = Color.white;
-
+    public List<Vector3> waypoints;
 	//Private
 	PerlinNoise m_groundNoise, m_mountainNoise, m_treeNoise, m_detailNoise;
     Dictionary<string,Vector2> takenPositions;
@@ -102,7 +104,7 @@ public class TerrainGenerator : MonoBehaviour
 		
 		m_terrain = new Terrain[m_tilesX,m_tilesZ];
 		
-		//this will center terrain at origin
+		//this will center terrain at origi
 		m_offset = new Vector2(-m_terrainSize*m_tilesX*0.5f, -m_terrainSize*m_tilesZ*0.5f);
 		
 		CreateProtoTypes();
@@ -140,6 +142,8 @@ public class TerrainGenerator : MonoBehaviour
                 FillCliffs(m_terrain[x, z], x, z);
                 FillSpice(m_terrain[x, z], x, z);
                 FillWater(m_terrain[x, z], x, z);
+              
+                FillWayPoints(m_terrain[x, z], x, z);
                 FillSoldierInstances(m_terrain[x, z], x, z);
                 FillWormInstances(m_terrain[x, z], x, z);
 				//FillDetailMap(m_terrain[x,z], x, z);
@@ -374,9 +378,16 @@ public class TerrainGenerator : MonoBehaviour
                             if (noise > 0.0f && ht < m_terrainHeight * 0.4f)
                             {
                                 Vector3 instantiatePosition = new Vector3(worldPosX - 1024 + offsetX / unit,ht,worldPosZ - 1024 + offsetZ / unit);
-                                int cliffs = 1;
-                                if(CheckBounds(instantiatePosition,solder.transform.localScale,cliffs))
+                                int cliffs = 0;
+                                cliffs |= (1 << LayerMask.NameToLayer("Cliff"));
+                                if (CheckBounds(instantiatePosition, solder.transform.localScale, cliffs) && instantiatePosition.z > -1024 && instantiatePosition.z < 1024 && instantiatePosition.x > -1024 && instantiatePosition.x < 1024)
                                 {
+                                    Vector3[] wp = new Vector3[4];
+                                    for(int i=0;i<wp.Length;i++){
+                                       // Debug.Log(waypoints.Count);
+                                        wp[i] = waypoints[Random.Range(0, waypoints.Count)];
+                                    }
+                                    solder.GetComponent<AIBehaviour>().Waypoints = wp;
                                 GameObject obj = Instantiate(solder,
                                      instantiatePosition,
                                      Quaternion.identity) as GameObject;
@@ -390,7 +401,57 @@ public class TerrainGenerator : MonoBehaviour
         }
 
     }
+    void FillWayPoints(Terrain terrain, int tileX, int tileZ)
+    {
+        Random.seed = 6;
+        waypoints = new List<Vector3>();
 
+        for (int x = 0; x < m_terrainSize; x += wayPointSpacing)
+        {
+            for (int z = 0; z < m_terrainSize; z += wayPointSpacing)
+            {
+                float unit = 1.0f / (m_terrainSize - 1);
+
+                float offsetX = Random.value * unit * wayPointSpacing;
+                float offsetZ = Random.value * unit * wayPointSpacing;
+
+                float normX = x * unit + offsetX;
+                float normZ = z * unit + offsetZ;
+
+                // Get the steepness value at the normalized coordinate.
+                float angle = terrain.terrainData.GetSteepness(normX, normZ);
+
+                // Steepness is given as an angle, 0..90 degrees. Divide
+                // by 90 to get an alpha blending value in the range 0..1.
+                float frac = angle / 90.0f;
+
+                if (frac < 0.5f) //make sure tree are not on steep slopes
+                {
+                    float worldPosX = x + tileX * (m_terrainSize - 1);
+                    float worldPosZ = z + tileZ * (m_terrainSize - 1);
+
+                    float noise = m_treeNoise.FractalNoise2D(worldPosX, worldPosZ, 3, m_treeFrq, 1.0f);
+                    float ht = terrain.terrainData.GetInterpolatedHeight(normX, normZ);
+
+                    if (noise > 0.0f && ht < m_terrainHeight * 0.4f)
+                    {
+                        int cliffs = 0;
+                        cliffs |= (1 << LayerMask.NameToLayer("Cliff"));
+                        Vector3 instantiatePosition = new Vector3(worldPosX - 1024 + offsetX / unit, ht, worldPosZ - 1024 + offsetZ / unit);
+                        if (CheckBounds(instantiatePosition, solder.transform.localScale, cliffs) && instantiatePosition.z > -1024 && instantiatePosition.z < 1024 && instantiatePosition.x > -1024 && instantiatePosition.x < 1024)
+                        {
+                            GameObject obj = Instantiate(wayPoint,
+                             instantiatePosition,
+                             Quaternion.Euler(new Vector3(-90f, 0f, 0f))) as GameObject;
+                            waypoints.Add(instantiatePosition);
+                        }
+
+                    }
+                }
+            }
+        }
+
+    }
     void FillWormInstances(Terrain terrain, int tileX, int tileZ)
     {
         Random.seed = 6;
@@ -477,13 +538,16 @@ public class TerrainGenerator : MonoBehaviour
 
                             float noise = m_treeNoise.FractalNoise2D(worldPosX, worldPosZ, 3, m_treeFrq, 1.0f);
                             float ht = terrain.terrainData.GetInterpolatedHeight(normX, normZ);
-
+                          
                             if (noise > 0.0f && ht < m_terrainHeight * 0.4f)
                             {
-
-                                GameObject obj = Instantiate(cliff[Random.Range(0, 4)],
-                                     new Vector3(worldPosX - 1024 + offsetX / unit, ht, worldPosZ - 1024 + offsetZ / unit),
-                                     Quaternion.Euler(new Vector3(-90f, 0f, 0f))) as GameObject;
+                                Vector3 instantiatePosition = new Vector3(worldPosX - 1024 + offsetX / unit, ht, worldPosZ - 1024 + offsetZ / unit);
+                                if (instantiatePosition.z < 1024 && instantiatePosition.z > -1024 && instantiatePosition.x < 1024 && instantiatePosition.x > -1024)
+                                {
+                                    GameObject obj = Instantiate(cliff[Random.Range(0, 4)],
+                                         instantiatePosition,
+                                         Quaternion.Euler(new Vector3(-90f, 0f, 0f))) as GameObject;
+                                }
 
                             }
                     //    }
@@ -615,10 +679,11 @@ public class TerrainGenerator : MonoBehaviour
                     if (noise > 0.0f && ht < m_terrainHeight * 0.4f)
                     {
                         float q = unit * 10;
-                        if( worldPosZ - 1024 + offsetZ /q<1024&&worldPosZ - 1024 + offsetZ / q>-1024)
+                        Vector3 instantiatePosition = new Vector3(worldPosX - 1024 + offsetX / unit, ht, worldPosZ - 1024 + offsetZ / q);
+                        if( instantiatePosition.z<1024&&instantiatePosition.z>-1024&&instantiatePosition.x<1024&&instantiatePosition.x>-1024)
                         { 
                         GameObject obj = Instantiate(cliff[Random.Range(3, 6)],
-                             new Vector3(worldPosX - 1024 + offsetX / unit, ht, worldPosZ - 1024 + offsetZ / q),
+                             instantiatePosition,
                              Quaternion.Euler(new Vector3(-90f, Random.Range(0,180), 0f))) as GameObject;
                         takenPositions.Add(x + " " + z, new Vector2(x, z));
                         }

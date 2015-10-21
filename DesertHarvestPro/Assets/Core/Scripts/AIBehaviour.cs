@@ -10,8 +10,8 @@ public class AIBehaviour : MonoBehaviour {
     private string state;
     private string subState;
 
-    public GameObject[] Waypoints;
-    private GameObject currentWaypoint;
+    public Vector3[] Waypoints;
+    private Vector3 currentWaypoint;
     private int waypointIndex;
 
     private VisionControl vision;
@@ -35,7 +35,7 @@ public class AIBehaviour : MonoBehaviour {
 
         state = "Patrol";
 
-        nav.target = currentWaypoint.transform.position;
+        nav.target = currentWaypoint;
 
 
 
@@ -50,7 +50,7 @@ public class AIBehaviour : MonoBehaviour {
             case "Search":
                 //    Debug.Log("Searching...");
                 ani.SetBool("IsInCombat", false);
-                Debug.Log("ExitCombat");
+              //  Debug.Log("ExitCombat");
                 nav.agent.speed = 0.8f;
 
                 searchTimer += Time.deltaTime;
@@ -87,7 +87,7 @@ public class AIBehaviour : MonoBehaviour {
             case "Combat":
 
                 ani.SetBool("IsInCombat", true);
-                Debug.Log("EnterCombat");
+             //   Debug.Log("EnterCombat");
 
                 isLooking = false;
 
@@ -116,14 +116,14 @@ public class AIBehaviour : MonoBehaviour {
                 isLooking = false;
 
                 ani.SetBool("IsInCombat", false);
-                Debug.Log("ExitCombat");
+              //  Debug.Log("ExitCombat");
 
                 // Debug.Log("Patrolling...");
 
                 nav.agent.speed = 0.5f;
 
-                nav.target = currentWaypoint.transform.position;
-                if (Vector3.Distance(transform.position, currentWaypoint.transform.position) < 2f)
+                nav.target = currentWaypoint;
+                if (Vector3.Distance(transform.position, currentWaypoint) < 2f)
                 {
                     
                     waypointIndex++;
@@ -148,7 +148,7 @@ public class AIBehaviour : MonoBehaviour {
 
     IEnumerator searchTurn()
     {
-        Debug.Log("Soldier is turning");
+      //  Debug.Log("Soldier is turning");
 
         float turnTime = 5f;
 
@@ -166,7 +166,7 @@ public class AIBehaviour : MonoBehaviour {
     void Shoot()
     {
 
-        Debug.Log("Bang!!");
+       // Debug.Log("Bang!!");
         RaycastHit hit;
 
         Debug.DrawRay(gun.transform.position, transform.forward*10, Color.red, 0.5f);
