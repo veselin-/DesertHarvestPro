@@ -20,6 +20,7 @@ public class AIBehaviour : MonoBehaviour {
     private bool isLooking;
 
     public GameObject gun;
+    
     // Use this for initialization
     void Start () {
 
@@ -168,12 +169,13 @@ public class AIBehaviour : MonoBehaviour {
 
        // Debug.Log("Bang!!");
         RaycastHit hit;
+        GetComponent<AudioSource>().Play();
+       Vector3 direction = vision.lastKnownPlayerPosition - gun.transform.position;
 
-        Debug.DrawRay(gun.transform.position, transform.forward*10, Color.red, 0.5f);
-
-        if (Physics.Raycast(gun.transform.position, transform.forward, out hit, 100f))
+        if (Physics.Raycast(gun.transform.position, direction, out hit, 100f))
         {
-
+            
+            gun.GetComponent<LaserFire>().ShootCall(hit.point);
             // Debug.Log(hit.collider.name);
             if (hit.collider.gameObject.tag == "Player")
             {

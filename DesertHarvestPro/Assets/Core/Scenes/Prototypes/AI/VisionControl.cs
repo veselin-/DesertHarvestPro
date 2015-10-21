@@ -13,8 +13,10 @@ public class VisionControl : MonoBehaviour {
 
     public GameObject eyes;
 
-	// Use this for initialization
-	void Start () {
+    public Vector3 direction;
+
+    // Use this for initialization
+    void Start () {
 
         GetComponent<SphereCollider>().radius = sightRadius;
 	}
@@ -35,7 +37,7 @@ public class VisionControl : MonoBehaviour {
         if (col.tag == "Player")
         {
             
-            Vector3 direction = col.transform.position - eyes.transform.position;
+            direction = col.transform.position - eyes.transform.position;
 
             
             float angle = Vector3.Angle(direction, eyes.transform.forward);
