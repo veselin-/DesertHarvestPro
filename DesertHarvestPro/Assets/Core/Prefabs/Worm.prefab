@@ -42,6 +42,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 418380}
   - 195: {fileID: 19599802}
+  - 54: {fileID: 5454766}
+  - 135: {fileID: 13581794}
   m_Layer: 0
   m_Name: Maker
   m_TagString: Untagged
@@ -240,6 +242,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 188810}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &5454766
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176348}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!111 &11137042
 Animation:
   m_ObjectHideFlags: 1
@@ -304,6 +321,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 150
   m_Center: {x: 0, y: 7, z: 0}
+--- !u!135 &13581794
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176348}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .5
+  m_Center: {x: 0, y: .5, z: 0}
 --- !u!136 &13677022
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -324,7 +353,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176348}
   m_Enabled: 1
-  m_Radius: 3
+  m_Radius: 2.5
   m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50

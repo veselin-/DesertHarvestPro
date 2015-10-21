@@ -21,19 +21,25 @@ public class LaserFire : MonoBehaviour {
 	
 	}
 
-    public void ShootCall(GameObject p)
+    public void ShootCall(Vector3 p)
     {
         StartCoroutine(Shoot(p));
     }
 
 
-    IEnumerator Shoot(GameObject p)
+    IEnumerator Shoot(Vector3 p)
     {
+
+        linerenderer.enabled = true;
         linerenderer.SetPosition(0, barrel.transform.position);
 
-        linerenderer.SetPosition(1, p.transform.position);
+        linerenderer.SetPosition(1, p);
+
+     
 
         yield return new WaitForSeconds(0.3f);
 
+
+        linerenderer.enabled = false;
     }
 }
