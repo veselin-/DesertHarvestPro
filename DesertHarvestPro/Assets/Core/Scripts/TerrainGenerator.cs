@@ -101,7 +101,7 @@ public class TerrainGenerator : MonoBehaviour
 		
 		m_terrain = new Terrain[m_tilesX,m_tilesZ];
 		
-		//this will center terrain at origin
+		//this will center terrain at origi
 		m_offset = new Vector2(-m_terrainSize*m_tilesX*0.5f, -m_terrainSize*m_tilesZ*0.5f);
 		
 		CreateProtoTypes();

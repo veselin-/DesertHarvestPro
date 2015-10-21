@@ -50,7 +50,7 @@ public class AIBehaviour : MonoBehaviour {
             case "Search":
                 //    Debug.Log("Searching...");
                 ani.SetBool("IsInCombat", false);
-                Debug.Log("ExitCombat");
+              //  Debug.Log("ExitCombat");
                 nav.agent.speed = 0.8f;
 
                 searchTimer += Time.deltaTime;
@@ -87,7 +87,7 @@ public class AIBehaviour : MonoBehaviour {
             case "Combat":
 
                 ani.SetBool("IsInCombat", true);
-                Debug.Log("EnterCombat");
+             //   Debug.Log("EnterCombat");
 
                 isLooking = false;
 
@@ -116,7 +116,7 @@ public class AIBehaviour : MonoBehaviour {
                 isLooking = false;
 
                 ani.SetBool("IsInCombat", false);
-                Debug.Log("ExitCombat");
+              //  Debug.Log("ExitCombat");
 
                 // Debug.Log("Patrolling...");
 
@@ -148,7 +148,7 @@ public class AIBehaviour : MonoBehaviour {
 
     IEnumerator searchTurn()
     {
-        Debug.Log("Soldier is turning");
+      //  Debug.Log("Soldier is turning");
 
         float turnTime = 5f;
 
@@ -166,7 +166,7 @@ public class AIBehaviour : MonoBehaviour {
     void Shoot()
     {
 
-        Debug.Log("Bang!!");
+       // Debug.Log("Bang!!");
         RaycastHit hit;
 
         Debug.DrawRay(gun.transform.position, transform.forward*10, Color.red, 0.5f);

@@ -58,9 +58,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 426458}
   - 33: {fileID: 3359002}
-  - 135: {fileID: 13554530}
   - 23: {fileID: 2307618}
-  - 111: {fileID: 11127792}
   m_Layer: 0
   m_Name: WormSign
   m_TagString: Untagged
@@ -80,8 +78,24 @@ GameObject:
   - 136: {fileID: 13677022}
   - 23: {fileID: 2357000}
   - 111: {fileID: 11137042}
+  - 114: {fileID: 11419718}
   m_Layer: 0
   m_Name: Body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &193370
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 431600}
+  m_Layer: 0
+  m_Name: WormSignRest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,8 +108,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 148074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.2999992, y: -6.48100328, z: 22.6000004}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 22.2999992, y: -11.6859999, z: 22.6000004}
+  m_LocalScale: {x: 1.81012583, y: 1.81012547, z: 1.81012547}
   m_Children:
   - {fileID: 418380}
   - {fileID: 440078}
@@ -113,6 +127,7 @@ Transform:
   m_Children:
   - {fileID: 426458}
   - {fileID: 432902}
+  - {fileID: 431600}
   m_Father: {fileID: 406014}
   m_RootOrder: 0
 --- !u!4 &426458
@@ -127,6 +142,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 418380}
   m_RootOrder: 0
+--- !u!4 &431600
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193370}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.39999998, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 418380}
+  m_RootOrder: 2
 --- !u!4 &432902
 Transform:
   m_ObjectHideFlags: 1
@@ -213,22 +240,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 188810}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!111 &11127792
-Animation:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 187830}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 15866a762ebcaf14191e21a5c289bfd8, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: efb09f48ad70e424789b3f8520010c1d, type: 2}
-  - {fileID: 7400000, guid: 15866a762ebcaf14191e21a5c289bfd8, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!111 &11137042
 Animation:
   m_ObjectHideFlags: 1
@@ -241,7 +252,7 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: c67dd1c90e6e99448b60eab3979fbfa8, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!114 &11418488
@@ -257,7 +268,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 188810}
   sign: {fileID: 187830}
+  signRest: {fileID: 193370}
   Waypoint: {fileID: 105354}
+--- !u!114 &11419718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e1cded9d944384199df5525cb236d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11434164
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -269,18 +292,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3702066bb5db064c9e58d01477856c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &13554530
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 187830}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &13575564
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -291,7 +302,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 20
+  m_Radius: 150
   m_Center: {x: 0, y: 7, z: 0}
 --- !u!136 &13677022
 CapsuleCollider:
@@ -314,7 +325,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 176348}
   m_Enabled: 1
   m_Radius: 3
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
