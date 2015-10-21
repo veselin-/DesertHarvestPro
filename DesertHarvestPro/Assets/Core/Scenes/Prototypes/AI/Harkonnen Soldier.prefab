@@ -2873,7 +2873,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1a4747fea3652304ebac8965ab542190, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -3022,10 +3022,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Waypoints:
-  - {x: 1021.81842, y: 48.4314766, z: -867.818298}
-  - {x: 108.884155, y: 78.0446854, z: 573.585632}
-  - {x: -991.07428, y: 57.9038086, z: 745.357605}
-  - {x: 944.065308, y: 80.2851028, z: -324.647888}
+  - {x: 0, y: 0, z: 0}
+  - {x: 25, y: 0, z: 25}
+  - {x: 10, y: 0, z: 15}
+  - {x: 33, y: 0, z: 45}
   gun: {fileID: 173404}
 --- !u!120 &12024682
 LineRenderer:
