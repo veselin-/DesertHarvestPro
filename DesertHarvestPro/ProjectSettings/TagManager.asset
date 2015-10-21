@@ -8,6 +8,7 @@ TagManager:
   - Spice
   - Water
   - Eyes
+  - Enemy
   layers:
   - Default
   - TransparentFX
