@@ -374,6 +374,7 @@ public class TerrainGenerator : MonoBehaviour
                             if (noise > 0.0f && ht < m_terrainHeight * 0.4f)
                             {
                                 Vector3 instantiatePosition = new Vector3(worldPosX - 1024 + offsetX / unit,ht,worldPosZ - 1024 + offsetZ / unit);
+                                int cliffs = 1;
                                 if(CheckBounds(instantiatePosition,solder.transform.localScale,cliffs))
                                 {
                                 GameObject obj = Instantiate(solder,
