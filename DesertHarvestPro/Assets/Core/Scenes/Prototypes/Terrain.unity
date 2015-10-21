@@ -2543,8 +2543,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11450856, guid: c635eb9b74f87db4387ae3eb545e6b12, type: 2}
       propertyPath: soldierSpacing
-      value: 300
+      value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 11450856, guid: c635eb9b74f87db4387ae3eb545e6b12, type: 2}
+      propertyPath: worm
+      value: 
+      objectReference: {fileID: 148074, guid: 0e26ecec576e92c45b68bc592790bc15, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c635eb9b74f87db4387ae3eb545e6b12, type: 2}
   m_IsPrefabParent: 0

@@ -10,8 +10,8 @@ public class AIBehaviour : MonoBehaviour {
     private string state;
     private string subState;
 
-    public GameObject[] Waypoints;
-    private GameObject currentWaypoint;
+    public Vector3[] Waypoints;
+    private Vector3 currentWaypoint;
     private int waypointIndex;
 
     private VisionControl vision;
@@ -35,7 +35,7 @@ public class AIBehaviour : MonoBehaviour {
 
         state = "Patrol";
 
-        nav.target = currentWaypoint.transform.position;
+        nav.target = currentWaypoint;
 
 
 
@@ -122,8 +122,8 @@ public class AIBehaviour : MonoBehaviour {
 
                 nav.agent.speed = 0.5f;
 
-                nav.target = currentWaypoint.transform.position;
-                if (Vector3.Distance(transform.position, currentWaypoint.transform.position) < 2f)
+                nav.target = currentWaypoint;
+                if (Vector3.Distance(transform.position, currentWaypoint) < 2f)
                 {
                     
                     waypointIndex++;
